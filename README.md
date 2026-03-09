@@ -4,7 +4,11 @@
 (1) Nastavak rada na projektu iz kolegija "Razvoj programskih proizvoda"
 
 ## Opis projekta
-(Ovdje ukratko opišite projekt na kojem radite, uključujući temu i domenu projekta, kolegij na kojem ste inicijalno započeli projekt, te inicijalne tehnologije koje ste koristili za prethodnu izradu projekta.)
+Projekt Padeler započet je na kolegiju Razvoj programskih proizvoda. Tema projekta pripada domeni sportskih i društvenih aplikacija te je usmjerena na povezivanje igrača padela radi lakšeg pronalaska partnera za igru. Cilj aplikacije je omogućiti korisnicima pronalaženje drugih igrača u blizini na temelju njihove lokacije, razine vještine i preferencija za igru.
+
+Aplikacija je prvotno razvijena kao desktop aplikacija u razvojnom okruženju Visual Studio, korištenjem WinForms tehnologije i C# programskog jezika. Sustav omogućuje korisnicima registraciju i prijavu, izradu i uređivanje korisničkog profila, pretraživanje igrača u blizini te interakciju s drugim korisnicima.
+
+Za razvoj projekta korištene su tehnologije .NET Framework, WinForms, C#, MySQL Server za pohranu podataka, GitHub za upravljanje verzijama koda te Visual Paradigm za modeliranje sustava.
 
 ## Projektni tim
 
@@ -33,4 +37,4 @@ Oznaka | Naziv | Kratki opis | Odgovorni član tima
 | F09 | Popis ostvarenih podudaranja | Nakon ostvarenog podudaranja, korisnik i njegovi kontakt podaci će se pojaviti u popisu ostvarenih podudaranja uz mogućnost postavljanja nadimka korisnika te brisanja tog korisnika iz istog popisa. | Filip Grgac |
 
 ## Tehnologije i oprema
-.Net Framework, WinForms, GitHub okruženje, Visual Paradigme, MySql server.
+.NET Framework, WinForms, GitHub okruženje, Visual Paradigm, MySQL server.
