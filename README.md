@@ -1,7 +1,7 @@
 # Padeler
 
 ## Model rada na projektu
-(Ovdje navedite model rada na projektu, pri čemu su dostupne opcije: (1) Nastavak rada na projektu iz kolegija "Naziv kolegija", (2) Nastavak rada na nekom drugom projektu (npr. neki projekt otvorenog kôda), (3) Rad u suradnji s nastavnicima (na projektima nastavnika).
+(1) Nastavak rada na projektu iz kolegija "Razvoj programskih proizvoda"
 
 ## Opis projekta
 (Ovdje ukratko opišite projekt na kojem radite, uključujući temu i domenu projekta, kolegij na kojem ste inicijalno započeli projekt, te inicijalne tehnologije koje ste koristili za prethodnu izradu projekta.)
