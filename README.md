@@ -1,20 +1,4 @@
-**(ERASMUS students please see the english version (README_ENG.md) of this document)**
-
-# Inicijalne upute za prijavu 1. projekta iz kolegija Testiranje i kvaliteta programskih proizvoda
-
-Poštovane kolegice i kolege, 
-
-čestitamo vam jer ste uspješno prijavili svoj projektni tim na kolegiju Testiranje i kvaliteta programskih proizvoda, te je za vas automatski kreiran repozitorij koji ćete koristiti za verzioniranje vašega koda, testova, ali i za pisanje dokumentacije.
-
-Ovaj dokument (README.md) predstavlja **osobnu iskaznicu vašeg projekta**. Vaš prvi zadatak je **prijaviti vlastiti projektni prijedlog** na način da ćete prijavu vašeg projekta, sukladno uputama danim u ovom tekstu, napisati upravo u ovaj dokument, umjesto ovoga teksta.
-
-Za upute o sintaksi koju možete koristiti u ovom dokumentu i kod pisanje vaše projektne dokumentacije pogledajte [ovaj link](https://guides.github.com/features/mastering-markdown/).
-Sav programski kod i testove je potrebno verzionirati u glavnoj **master** grani i **obvezno** smjestiti u mapu Software. Sve artefakte (npr. slike) koje ćete koristiti u vašoj dokumentaciju smjestiti u mapu Documentation.
-
-Povratnu informaciju na samu prijavu tima i projekta, kao i na završnu predaju ćete od nastavnika dobiti kroz sekciju Discussions (također dostupnu na GitHubu vašeg projekta). A sada, vrijeme je da prijavite vaš projekt. Za prijavu vašeg projektnog prijedloga molimo vas koristite **predložak** koji je naveden u nastavku, a započnite tako da kliknete na *olovku* u desnom gornjem kutu ovoga dokumenta :) 
-
-# Naziv projekta
-(u redak iznad navedite kratki proizvoljni naziv projekta prikladan akademskoj zajednici, a ovaj tekst obrišite)
+# Padeler
 
 ## Model rada na projektu
 (Ovdje navedite model rada na projektu, pri čemu su dostupne opcije: (1) Nastavak rada na projektu iz kolegija "Naziv kolegija", (2) Nastavak rada na nekom drugom projektu (npr. neki projekt otvorenog kôda), (3) Rad u suradnji s nastavnicima (na projektima nastavnika).
@@ -26,17 +10,27 @@ Povratnu informaciju na samu prijavu tima i projekta, kao i na završnu predaju 
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
 ------------  | ------------------- | ----- | ---------------------
-Ime i prezime | mojaadresa@foi.hr | 000000000 | githubuser
-Ime i prezime | ... | ... | ...
+Filip Grgac | fgrgac23@foi.hr | 0016167082 | fgrgac23
+Karlo Kršak | kkrsak23@foi.hr | 0016165894 | kkrsak23
+Kristian Katulić | kkatulic23@foi.hr | 0016168011 | kkatulic23
 
 ## Specifikacija projekta
-Ovdje navedite funkcionalne i nefunkcionalne zahtjeve koje je vaš projekt do sada obuhvaćao:
+Aplikacija Padeler zamišljena je kao desktop aplikacija razvijena u Visual Studiju pomoću WinForms-a u C# programskog jezika. Cilj aplikacije je povezati padel igrače na temelju njihove lokacije i razine igre. Korisnici mogu izrađivati i uređivati profile, pretraživati druge igrače u blizini, “swipeati” za odabir partnera, dopisivati se i davati ocjene nakon mečeva.
+
+Aplikacija se sastoji od korisničkog sučelja (frontend) i poslužiteljskog (backend) dijela.
+Desktop aplikacija, izrađena u Visual Studiju, zadužena je za korisničko sučelje i komunikaciju s poslužiteljem. Ona sadrži module za prijavu i registraciju korisnika, upravljanje profilom, prikaz i filtriranje igrača u blizini pomoću GPS-a, sustav za podudaranje, chat modul za komunikaciju te sustav obavijesti o novim porukama i podudaranjima.
 
 Oznaka | Naziv | Kratki opis | Odgovorni član tima
 ------ | ----- | ----------- | -------------------
-F01 | Login | Sustav omogućava prijavu korisnika ... | Ivan Horvat
-F02 | Registracija | Sustav omogućava registraciju novog korisnika... | Pero Perić
-...
+| F01 | Autentikacija | Omogućuje novim korisnicima kreiranje računa putem e-mail adrese. Sustav validira unesene podatke i sprema ih u bazu. Zatim se korisnici prijavljuju pomoću registriranih podataka. Sustav provjerava točnost unesenih podataka i omogućuje siguran pristup aplikaciji. | Karlo Kršak |
+| F02 | Uređivanje korisničkog profila | Korisnik može ažurirati osobne podatke, dodati ili promijeniti profilnu sliku, opis, razinu vještine, lokaciju i preferencija za igru. | Kristian Katulić |
+| F03 | Geolokacijsko pretraživanje | Aplikacija prikazuje druge padel igrače u blizini korisnikove lokacije, s mogućnošću podešavanja radijusa pretrage. | Karlo Kršak |
+| F04 | Sustav interakcije | Korisnik može kliknuti desni gumb ako želi igrati s nekim, ili lijevi gumb za preskakanje. Ako oba igrača pritisnu desni gumb, stvara se podudaranje (match). | Filip Grgac |
+| F05 | Sustav nagrađivanja korisnika | Za svaki klik korisnik će biti nagrađen sa bodom te na određenoj količini bodova će dobiti značku. | Kristian Katulić |
+| F06 | Filtar za pretragu partnera | Korisnik može filtrirati potencijalne partnere po kriterijima kao što su razina vještine, spol, lokacija i dostupnost. | Karlo Kršak |
+| F07 | Sustav obavijesti | Aplikacija šalje push obavijesti o novim porukama i podudaranjima. Korisnik može prilagoditi postavke obavijesti. | Filip Grgac |
+| F08 | Ocjenjivanje suigrača | Nakon odigranog meča korisnik može ocijeniti partnera i ostaviti komentar. | Kristian Katulić |
+| F09 | Popis ostvarenih podudaranja | Nakon ostvarenog podudaranja, korisnik i njegovi kontakt podaci će se pojaviti u popisu ostvarenih podudaranja uz mogućnost postavljanja nadimka korisnika te brisanja tog korisnika iz istog popisa. | Filip Grgac |
 
 ## Tehnologije i oprema
-Ovdje opišite tehnologije i alate koje koje ćete koristit u realizaciji projekta na kolegiju Testiranje i kvaliteta programskih proizvoda. Naravno, ovu sekciju možete naknadno i ažurirati. 
+.Net Framework, WinForms, GitHub okruženje, Visual Paradigme, MySql server.
