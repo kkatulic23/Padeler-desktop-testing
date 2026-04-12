@@ -26,5 +26,6 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMSTest_Analyzers Condition=" '$(PkgMSTest_Analyzers)' == '' ">C:\Users\Fićo\.nuget\packages\mstest.analyzers\3.10.2</PkgMSTest_Analyzers>
+    <PkgInterop_UIAutomationClient Condition=" '$(PkgInterop_UIAutomationClient)' == '' ">C:\Users\Fićo\.nuget\packages\interop.uiautomationclient\10.19041.0</PkgInterop_UIAutomationClient>
   </PropertyGroup>
 </Project>

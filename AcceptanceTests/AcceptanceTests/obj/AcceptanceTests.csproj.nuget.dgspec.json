@@ -50,6 +50,14 @@
         "net48": {
           "targetAlias": "net48",
           "dependencies": {
+            "FlaUI.Core": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "FlaUI.UIA3": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "MSTest.TestAdapter": {
               "target": "Package",
               "version": "[3.10.2, )"

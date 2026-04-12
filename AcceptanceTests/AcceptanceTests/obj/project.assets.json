@@ -40,6 +40,53 @@
           }
         }
       },
+      "FlaUI.Core/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Management": "8.0.0"
+        },
+        "frameworkAssemblies": [
+          "Accessibility",
+          "PresentationCore",
+          "PresentationFramework",
+          "System.IO.Compression",
+          "System.Management",
+          "System.Net.Http",
+          "System.Windows.Forms",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/FlaUI.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/FlaUI.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "FlaUI.UIA3/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "FlaUI.Core": "5.0.0",
+          "Interop.UIAutomationClient": "10.19041.0"
+        },
+        "frameworkAssemblies": [
+          "Accessibility",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/FlaUI.UIA3.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/FlaUI.UIA3.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Gherkin/35.0.0": {
         "type": "package",
         "dependencies": {
@@ -54,6 +101,18 @@
           "lib/netstandard2.0/Gherkin.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "Interop.UIAutomationClient/10.19041.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Interop.UIAutomationClient.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Interop.UIAutomationClient.dll": {}
+        },
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.ApplicationInsights/2.23.0": {
@@ -732,6 +791,22 @@
           }
         }
       },
+      "System.CodeDom/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net462/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net462/_._": {}
+        }
+      },
       "System.Collections.Immutable/1.5.0": {
         "type": "package",
         "compile": {
@@ -764,6 +839,21 @@
           "lib/net46/System.Diagnostics.DiagnosticSource.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "System.Management/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "8.0.0"
+        },
+        "frameworkAssemblies": [
+          "System.Management"
+        ],
+        "compile": {
+          "lib/net462/_._": {}
+        },
+        "runtime": {
+          "lib/net462/_._": {}
         }
       },
       "System.Memory/4.5.5": {
@@ -981,6 +1071,46 @@
         "lib/netstandard2.0/Cucumber.Messages.xml"
       ]
     },
+    "FlaUI.Core/5.0.0": {
+      "sha512": "VWWYqwjsYkii2BrUsz5+bpXEp27NherKhLt19hTxHwJP4KrfyZoeo1FdBov4ZTh655wZAKDGIjR7NJLDesuzeg==",
+      "type": "package",
+      "path": "flaui.core/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "FlaUI.png",
+        "LICENSE.txt",
+        "flaui.core.5.0.0.nupkg.sha512",
+        "flaui.core.nuspec",
+        "lib/net48/FlaUI.Core.dll",
+        "lib/net48/FlaUI.Core.xml",
+        "lib/net6.0-windows7.0/FlaUI.Core.dll",
+        "lib/net6.0-windows7.0/FlaUI.Core.xml",
+        "lib/net8.0-windows7.0/FlaUI.Core.dll",
+        "lib/net8.0-windows7.0/FlaUI.Core.xml"
+      ]
+    },
+    "FlaUI.UIA3/5.0.0": {
+      "sha512": "s1Yy1RsRJ0OXvmtxQlNJd0cu4sfvN3PFFu6skBGK8VlwPl/b38E0V5kCbo2gvkuhRIu4Itfxjdo7DUMF7qJw4Q==",
+      "type": "package",
+      "path": "flaui.uia3/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "FlaUI.png",
+        "LICENSE.txt",
+        "flaui.uia3.5.0.0.nupkg.sha512",
+        "flaui.uia3.nuspec",
+        "lib/net48/FlaUI.UIA3.dll",
+        "lib/net48/FlaUI.UIA3.xml",
+        "lib/net6.0-windows7.0/FlaUI.UIA3.dll",
+        "lib/net6.0-windows7.0/FlaUI.UIA3.xml",
+        "lib/net8.0-windows7.0/FlaUI.UIA3.dll",
+        "lib/net8.0-windows7.0/FlaUI.UIA3.xml"
+      ]
+    },
     "Gherkin/35.0.0": {
       "sha512": "ha+QNevQsXEESbzazUceHTCtKOjoBTBa8kLFdKpu6vSEbb3UMt3a55RG78tIoU/C4qzIqX3jQxaIdIcYGO+IWQ==",
       "type": "package",
@@ -993,6 +1123,26 @@
         "gherkin.nuspec",
         "lib/netstandard2.0/Gherkin.dll",
         "lib/netstandard2.0/Gherkin.xml"
+      ]
+    },
+    "Interop.UIAutomationClient/10.19041.0": {
+      "sha512": "Me5vKNZ1JSg6txTsPQXaWx7fVNh+fmcUPPwtDKJtqvbMM0N8aoa/l/QPolkJIRnasCabCNt4v2zG4p1Q9HU98A==",
+      "type": "package",
+      "path": "interop.uiautomationclient/10.19041.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "build/Interop.UIAutomationClient.targets",
+        "interop.uiautomationclient.10.19041.0.nupkg.sha512",
+        "interop.uiautomationclient.nuspec",
+        "lib/net35/Interop.UIAutomationClient.dll",
+        "lib/net40/Interop.UIAutomationClient.dll",
+        "lib/net45/Interop.UIAutomationClient.dll",
+        "lib/netcoreapp3.0/Interop.UIAutomationClient.dll",
+        "lib/netstandard2.0/Interop.UIAutomationClient.dll",
+        "tools/install.ps1"
       ]
     },
     "Microsoft.ApplicationInsights/2.23.0": {
@@ -2289,6 +2439,35 @@
         "version.txt"
       ]
     },
+    "System.CodeDom/8.0.0": {
+      "sha512": "WTlRjL6KWIMr/pAaq3rYqh0TJlzpouaQ/W1eelssHgtlwHAH25jXTkUphTYx9HaIIf7XA6qs/0+YhtLEQRkJ+Q==",
+      "type": "package",
+      "path": "system.codedom/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.CodeDom.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
+        "lib/net462/System.CodeDom.dll",
+        "lib/net462/System.CodeDom.xml",
+        "lib/net6.0/System.CodeDom.dll",
+        "lib/net6.0/System.CodeDom.xml",
+        "lib/net7.0/System.CodeDom.dll",
+        "lib/net7.0/System.CodeDom.xml",
+        "lib/net8.0/System.CodeDom.dll",
+        "lib/net8.0/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.8.0.0.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.Collections.Immutable/1.5.0": {
       "sha512": "EXKiDFsChZW0RjrZ4FYHu9aW6+P4MCgEDCklsVseRfhoO0F+dXeMSsMRAlVXIo06kGJ/zv+2w1a2uc2+kxxSaQ==",
       "type": "package",
@@ -2338,6 +2517,39 @@
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "System.Management/8.0.0": {
+      "sha512": "jrK22i5LRzxZCfGb+tGmke2VH7oE0DvcDlJ1HAKYU8cPmD8XnpUT0bYn2Gy98GEhGjtfbR/sxKTVb+dE770pfA==",
+      "type": "package",
+      "path": "system.management/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Management.targets",
+        "lib/net462/_._",
+        "lib/net6.0/System.Management.dll",
+        "lib/net6.0/System.Management.xml",
+        "lib/net7.0/System.Management.dll",
+        "lib/net7.0/System.Management.xml",
+        "lib/net8.0/System.Management.dll",
+        "lib/net8.0/System.Management.xml",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net6.0/System.Management.dll",
+        "runtimes/win/lib/net6.0/System.Management.xml",
+        "runtimes/win/lib/net7.0/System.Management.dll",
+        "runtimes/win/lib/net7.0/System.Management.xml",
+        "runtimes/win/lib/net8.0/System.Management.dll",
+        "runtimes/win/lib/net8.0/System.Management.xml",
+        "system.management.8.0.0.nupkg.sha512",
+        "system.management.nuspec",
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Memory/4.5.5": {
@@ -2678,6 +2890,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
+      "FlaUI.Core >= 5.0.0",
+      "FlaUI.UIA3 >= 5.0.0",
       "MSTest.TestAdapter >= 3.10.2",
       "MSTest.TestFramework >= 3.10.2",
       "Microsoft.NET.Test.Sdk >= 17.14.1",
@@ -2734,6 +2948,14 @@
       "net48": {
         "targetAlias": "net48",
         "dependencies": {
+          "FlaUI.Core": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
+          "FlaUI.UIA3": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
           "MSTest.TestAdapter": {
             "target": "Package",
             "version": "[3.10.2, )"
