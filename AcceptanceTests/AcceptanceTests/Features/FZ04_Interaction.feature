@@ -1,5 +1,9 @@
 ﻿Feature: FZ04_Interaction
 
+As a user
+I want to be able to see the profile cards
+So that I can interact with them
+
 Background: 
 	Given I am logged into the application
 	And I am on the interaction screen
