@@ -42,9 +42,7 @@ namespace AcceptanceTests.StepDefinitions
         public void GivenIAmOnTheInteractionScreen()
         {
             var homeButton = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("btnHome"))?.AsButton()?.WaitUntilClickable();
-
             Assert.IsNotNull(homeButton, "Home button was not found!");
-
             homeButton.Invoke();
         }
 
@@ -57,30 +55,40 @@ namespace AcceptanceTests.StepDefinitions
         public void ThenPlayerCardsShouldBeDisplayed()
         {
             _frontCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlFrontCard"))?.WaitUntilClickable();
-
             Assert.IsNotNull(_frontCard, "Player card was not found!");
-
             var playerName = _frontCard.FindFirstDescendant(cf => cf.ByAutomationId("lblPlayer"))?.AsLabel()?.Text;
-
             Assert.IsFalse(string.IsNullOrWhiteSpace(playerName), "Player name is not displayed!");
         }
 
         [Given("at least two cards are available")]
         public void GivenAtLeastTwoCardsAreAvailable()
         {
-            throw new PendingStepException();
+            _frontCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlFrontCard"))?.WaitUntilClickable();
+            Assert.IsNotNull(_frontCard, "Player card was not found!");
+            var playerLabel = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("lblPlayer"))?.AsLabel();
+            Assert.IsNotNull(playerLabel, "Player label was not found!");
+            _previousPlayerName = playerLabel.Text;
+            Assert.IsFalse(string.IsNullOrWhiteSpace(_previousPlayerName), "Current player name is empty");
         }
 
         [When("I click the skip button")]
         public void WhenIClickTheSkipButton()
         {
-            throw new PendingStepException();
+            var skipButton = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pbDisslike"))?.WaitUntilClickable();
+            Assert.IsNotNull(skipButton, "Skip button was not found!");
+            skipButton.Click();
         }
 
         [Then("the nex player card should be displayed")]
         public void ThenTheNexPlayerCardShouldBeDisplayed()
         {
-            throw new PendingStepException();
+            var currentCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlFrontCard"))?.WaitUntilClickable();
+            Assert.IsNotNull(currentCard, "No player card is displayed after action");
+            var currentPlayerLabel = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("lblPlayer"))?.AsLabel();
+            Assert.IsNotNull(currentPlayerLabel, "Player label was not found on the new card.");
+            var currentPlayerName = currentPlayerLabel.Text;
+            Assert.IsFalse(string.IsNullOrWhiteSpace(currentPlayerName), "New player name is empty!");
+            Assert.AreNotEqual(_previousPlayerName, currentPlayerName, "The next player card was not displayed because the same player is still shown.");
         }
 
         [When("I click the like button")]
