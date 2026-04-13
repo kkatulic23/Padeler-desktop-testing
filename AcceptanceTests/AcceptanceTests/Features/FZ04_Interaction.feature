@@ -1,4 +1,5 @@
-﻿Feature: FZ04_Interaction
+﻿@FZ04
+Feature: FZ04_Interaction
 
 As a user
 I want to be able to see the profile cards

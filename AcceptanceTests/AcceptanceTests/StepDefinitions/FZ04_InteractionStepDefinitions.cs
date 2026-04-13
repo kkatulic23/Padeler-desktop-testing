@@ -18,7 +18,7 @@ namespace AcceptanceTests.StepDefinitions
         private AutomationElement _frontCard;
         private string _previousPlayerName;
 
-        [BeforeScenario]
+        [BeforeScenario("FZ04")]
         public void Setup()
         {
             _application = Application.Launch(appPath);
@@ -27,7 +27,7 @@ namespace AcceptanceTests.StepDefinitions
             Thread.Sleep(2000);
         }
 
-        [AfterScenario]
+        [AfterScenario("FZ04")]
         public void CleanUp()
         {
             try

@@ -25,7 +25,8 @@ namespace AcceptanceTests.Features
         
         private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _testContext;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "FZ04"};
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "FZ04_Interaction", "As a user\r\nI want to be able to see the profile cards\r\nSo that I can interact wit" +
                 "h them", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
@@ -118,12 +119,12 @@ namespace AcceptanceTests.Features
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 7
-#line hidden
 #line 8
- await testRunner.GivenAsync("I am logged into the application", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 9
+ await testRunner.GivenAsync("I am logged into the application", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 10
  await testRunner.AndAsync("I am on the interaction screen", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
@@ -136,6 +137,7 @@ namespace AcceptanceTests.Features
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Available player profiles are displayed")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Available player profiles are displayed")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ04_Interaction")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ04")]
         public async global::System.Threading.Tasks.Task AvailablePlayerProfilesAreDisplayed()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -144,7 +146,7 @@ namespace AcceptanceTests.Features
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Available player profiles are displayed", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 11
+#line 12
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -154,13 +156,13 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 8
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 12
+#line 13
  await testRunner.WhenAsync("the interaction screen is opened", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 14
  await testRunner.ThenAsync("player cards should be displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -170,6 +172,7 @@ await this.FeatureBackgroundAsync();
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Skip action show the next player")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Skip action show the next player")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ04_Interaction")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ04")]
         public async global::System.Threading.Tasks.Task SkipActionShowTheNextPlayer()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -178,7 +181,7 @@ await this.FeatureBackgroundAsync();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Skip action show the next player", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 15
+#line 16
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -188,16 +191,16 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 8
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 16
+#line 17
  await testRunner.GivenAsync("at least two cards are available", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 17
+#line 18
  await testRunner.WhenAsync("I click the skip button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 18
+#line 19
  await testRunner.ThenAsync("the next player card should be displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -207,6 +210,7 @@ await this.FeatureBackgroundAsync();
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Like action show the next player")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Like action show the next player")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ04_Interaction")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ04")]
         public async global::System.Threading.Tasks.Task LikeActionShowTheNextPlayer()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -215,7 +219,7 @@ await this.FeatureBackgroundAsync();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Like action show the next player", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 20
+#line 21
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -225,16 +229,16 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 7
+#line 8
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 21
+#line 22
  await testRunner.GivenAsync("at least two cards are available", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 22
+#line 23
  await testRunner.WhenAsync("I click the like button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 23
+#line 24
  await testRunner.ThenAsync("the next player card should be displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
