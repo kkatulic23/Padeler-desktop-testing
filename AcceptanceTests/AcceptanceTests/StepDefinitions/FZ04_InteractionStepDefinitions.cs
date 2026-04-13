@@ -94,13 +94,21 @@ namespace AcceptanceTests.StepDefinitions
         [When("I click the like button")]
         public void WhenIClickTheLikeButton()
         {
-            throw new PendingStepException();
+            var likeButton = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pbLike"))?.WaitUntilClickable();
+            Assert.IsNotNull(likeButton, "Like button was not found!");
+            likeButton.Click();
         }
 
         [Then("the next player card should be displayed")]
         public void ThenTheNextPlayerCardShouldBeDisplayed()
         {
-            throw new PendingStepException();
+            var currentCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlFrontCard"))?.WaitUntilClickable();
+            Assert.IsNotNull(currentCard, "No player card is displayed after action");
+            var currentPlayerLabel = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("lblPlayer"))?.AsLabel();
+            Assert.IsNotNull(currentPlayerLabel, "Player label was not found on the new card.");
+            var currentPlayerName = currentPlayerLabel.Text;
+            Assert.IsFalse(string.IsNullOrWhiteSpace(currentPlayerName), "New player name is empty!");
+            Assert.AreNotEqual(_previousPlayerName, currentPlayerName, "The next player card was not displayed because the same player is still shown.");
         }
 
         [Given("another player has already clicked the like button")]
