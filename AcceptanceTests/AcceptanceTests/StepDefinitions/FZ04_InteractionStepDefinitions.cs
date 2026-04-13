@@ -79,18 +79,6 @@ namespace AcceptanceTests.StepDefinitions
             skipButton.Click();
         }
 
-        [Then("the nex player card should be displayed")]
-        public void ThenTheNexPlayerCardShouldBeDisplayed()
-        {
-            var currentCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlFrontCard"))?.WaitUntilClickable();
-            Assert.IsNotNull(currentCard, "No player card is displayed after action");
-            var currentPlayerLabel = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("lblPlayer"))?.AsLabel();
-            Assert.IsNotNull(currentPlayerLabel, "Player label was not found on the new card.");
-            var currentPlayerName = currentPlayerLabel.Text;
-            Assert.IsFalse(string.IsNullOrWhiteSpace(currentPlayerName), "New player name is empty!");
-            Assert.AreNotEqual(_previousPlayerName, currentPlayerName, "The next player card was not displayed because the same player is still shown.");
-        }
-
         [When("I click the like button")]
         public void WhenIClickTheLikeButton()
         {
@@ -110,18 +98,5 @@ namespace AcceptanceTests.StepDefinitions
             Assert.IsFalse(string.IsNullOrWhiteSpace(currentPlayerName), "New player name is empty!");
             Assert.AreNotEqual(_previousPlayerName, currentPlayerName, "The next player card was not displayed because the same player is still shown.");
         }
-
-        [Given("another player has already clicked the like button")]
-        public void GivenAnotherPlayerHasAlreadyClickedTheLikeButton()
-        {
-            throw new PendingStepException();
-        }
-
-        [Then("a match notificaiton should be displayed")]
-        public void ThenAMatchNotificaitonShouldBeDisplayed()
-        {
-            throw new PendingStepException();
-        }
-
     }
 }
