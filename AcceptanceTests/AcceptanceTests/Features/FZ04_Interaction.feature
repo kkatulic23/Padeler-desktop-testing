@@ -21,9 +21,3 @@ Scenario: Like action show the next player
 	Given at least two cards are available
 	When I click the like button
 	Then the next player card should be displayed
-
-@ignore
-Scenario: Mutual like creates a match
-	Given another player has already clicked the like button
-	When I click the like button
-	Then a match notificaiton should be displayed

@@ -24,18 +24,33 @@ namespace AcceptanceTests.StepDefinitions
             _application = Application.Launch(appPath);
             _application.WaitWhileMainHandleIsMissing();
             _automation = new UIA3Automation();
+            Thread.Sleep(2000);
         }
 
         [AfterScenario]
         public void CleanUp()
         {
-            _automation?.Dispose();
-            _application?.Close();
+            try
+            {
+                _automation?.Dispose();
+                if(_application != null)
+                {
+                    _application?.Close();
+                    Thread.Sleep(1000);
+
+                    if (!_application.HasExited)
+                    {
+                        _application.Kill();
+                    }
+                }
+            }
+            catch { }
         }
 
         [Given("I am logged into the application")]
         public void GivenIAmLoggedIntoTheApplication()
         {
+            //Podrazumijeva se da je korisnik prijavljen.
         }
 
         [Given("I am on the interaction screen")]
@@ -44,11 +59,13 @@ namespace AcceptanceTests.StepDefinitions
             var homeButton = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("btnHome"))?.AsButton()?.WaitUntilClickable();
             Assert.IsNotNull(homeButton, "Home button was not found!");
             homeButton.Invoke();
+            Thread.Sleep(1500);
         }
 
         [When("the interaction screen is opened")]
         public void WhenTheInteractionScreenIsOpened()
         {
+            //Otvaranje forme za interakciju je pokriveno u backgorund djelu.
         }
 
         [Then("player cards should be displayed")]
@@ -65,6 +82,7 @@ namespace AcceptanceTests.StepDefinitions
         {
             _frontCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlFrontCard"))?.WaitUntilClickable();
             Assert.IsNotNull(_frontCard, "Player card was not found!");
+            Thread.Sleep(1000);
             var playerLabel = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("lblPlayer"))?.AsLabel();
             Assert.IsNotNull(playerLabel, "Player label was not found!");
             _previousPlayerName = playerLabel.Text;
@@ -77,6 +95,7 @@ namespace AcceptanceTests.StepDefinitions
             var skipButton = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pbDisslike"))?.WaitUntilClickable();
             Assert.IsNotNull(skipButton, "Skip button was not found!");
             skipButton.Click();
+            Thread.Sleep(1500);
         }
 
         [When("I click the like button")]
@@ -85,6 +104,7 @@ namespace AcceptanceTests.StepDefinitions
             var likeButton = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pbLike"))?.WaitUntilClickable();
             Assert.IsNotNull(likeButton, "Like button was not found!");
             likeButton.Click();
+            Thread.Sleep(1500);
         }
 
         [Then("the next player card should be displayed")]
@@ -92,6 +112,7 @@ namespace AcceptanceTests.StepDefinitions
         {
             var currentCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlFrontCard"))?.WaitUntilClickable();
             Assert.IsNotNull(currentCard, "No player card is displayed after action");
+            Thread.Sleep(1000);
             var currentPlayerLabel = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("lblPlayer"))?.AsLabel();
             Assert.IsNotNull(currentPlayerLabel, "Player label was not found on the new card.");
             var currentPlayerName = currentPlayerLabel.Text;
