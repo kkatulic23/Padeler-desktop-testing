@@ -119,5 +119,31 @@ namespace AcceptanceTests.StepDefinitions
             Assert.IsFalse(string.IsNullOrWhiteSpace(currentPlayerName), "New player name is empty!");
             Assert.AreNotEqual(_previousPlayerName, currentPlayerName, "The next player card was not displayed because the same player is still shown.");
         }
+
+        [When("I click the info button")]
+        public void WhenIClickTheInfoButton()
+        {
+            var infoButton = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pbInfoFront"))?.AsButton()?.WaitUntilClickable();
+            Assert.IsNotNull(infoButton, "Info button was not found!");
+            infoButton.Click();
+            Thread.Sleep(1000);
+        }
+
+        [Then("I should see more informations about player")]
+        public void ThenIShouldSeeMoreInformationsAboutPlayer()
+        {
+            var backCard = _automation.GetDesktop().FindFirstDescendant(cf => cf.ByAutomationId("pnlBackCard"))?.WaitUntilClickable();
+            Assert.IsNotNull(backCard, "No player card info is displayed after action");
+            Thread.Sleep(1000);
+            var aboutLabel = backCard.FindFirstDescendant(cf => cf.ByAutomationId("lblAbout"))?.AsLabel();
+            Assert.IsNotNull(aboutLabel, "About player section was not displayed.");
+            var levelLabel = backCard.FindFirstDescendant(cf => cf.ByAutomationId("lblLevel"))?.AsLabel();
+            Assert.IsNotNull(levelLabel, "Player level information was not displayed.");
+            var frequencyLabel = backCard.FindFirstDescendant(cf => cf.ByAutomationId("lblFrequency"))?.AsLabel();
+            Assert.IsNotNull(frequencyLabel, "Player frequency information was not displayed.");
+            var positionLabel = backCard.FindFirstDescendant(cf => cf.ByAutomationId("lblPosition"))?.AsLabel();
+            Assert.IsNotNull(positionLabel, "Player position information was not displayed.");
+        }
+
     }
 }

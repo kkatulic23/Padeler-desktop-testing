@@ -22,3 +22,7 @@ Scenario: Like action show the next player
 	Given at least two cards are available
 	When I click the like button
 	Then the next player card should be displayed
+
+Scenario: Info button show more informations about player
+	When I click the info button
+	Then I should see more informations about player
