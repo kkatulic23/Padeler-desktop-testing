@@ -1,6 +1,6 @@
 is_global = true
 build_property.RootNamespace = AcceptanceTests
-build_property.ProjectDir = D:\Kristian\Faks\6. semestar\TKPP\tikpp26-fgrgac-kkatulic-kkrsak\AcceptanceTests\AcceptanceTests\
+build_property.ProjectDir = C:\Users\Karlo\Source\Repos\tikpp2526-fgrgac-kkatulic-kkrsak\AcceptanceTests\AcceptanceTests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.CsWinRTUseWindowsUIXamlProjections = false

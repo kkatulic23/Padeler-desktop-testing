@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.IO;
 
 namespace AcceptanceTests.StepDefinitions
 {
@@ -26,6 +27,16 @@ namespace AcceptanceTests.StepDefinitions
             _automation = new UIA3Automation();
             Thread.Sleep(2000);
         }
+        private string GetAppPath()
+        {
+            return Path.GetFullPath(
+                Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    @"..\..\..\..\..\Software\Padeler\Padeler\bin\Debug\Padeler.exe"
+                )
+            );
+        }
+
         private string GetAppPath()
         {
             return Path.GetFullPath(

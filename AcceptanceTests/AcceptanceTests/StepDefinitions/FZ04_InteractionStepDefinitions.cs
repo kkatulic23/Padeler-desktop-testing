@@ -6,6 +6,7 @@ using FlaUI.Core.AutomationElements;
 using FlaUI.UIA3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Reqnroll;
+using System.IO;
 
 namespace AcceptanceTests.StepDefinitions
 {
