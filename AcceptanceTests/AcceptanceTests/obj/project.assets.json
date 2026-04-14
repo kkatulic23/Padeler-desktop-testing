@@ -2899,23 +2899,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Fićo\\.nuget\\packages\\": {},
+    "C:\\Users\\Karlo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fićo\\source\\repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
+      "projectUniqueName": "C:\\Users\\Karlo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
       "projectName": "AcceptanceTests",
-      "projectPath": "C:\\Users\\Fićo\\source\\repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
-      "packagesPath": "C:\\Users\\Fićo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fićo\\source\\repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\obj\\",
+      "projectPath": "C:\\Users\\Karlo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
+      "packagesPath": "C:\\Users\\Karlo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Karlo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Fićo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Karlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2942,7 +2942,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net48": {
@@ -2973,7 +2973,7 @@
             "version": "[3.2.0, )"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

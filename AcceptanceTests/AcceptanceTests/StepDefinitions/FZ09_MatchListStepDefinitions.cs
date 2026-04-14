@@ -6,14 +6,13 @@ using Reqnroll;
 using System;
 using System.Linq;
 using System.Threading;
+using System.IO;
 
 namespace AcceptanceTests.StepDefinitions
 {
     [Binding]
     public class FZ09_MatchListStepDefinitions
     {
-        private const string appPath = @"C:\Users\Fiæo\source\repos\tikpp2526-fgrgac-kkatulic-kkrsak\Software\Padeler\Padeler\bin\Debug\Padeler.exe";
-
         private Application _application;
         private UIA3Automation _automation;
         private AutomationElement _matchesGrid;
@@ -22,10 +21,20 @@ namespace AcceptanceTests.StepDefinitions
         [BeforeScenario("FZ09")]
         public void Setup()
         {
-            _application = Application.Launch(appPath);
+            _application = Application.Launch(GetAppPath());
             _application.WaitWhileMainHandleIsMissing();
             _automation = new UIA3Automation();
             Thread.Sleep(2000);
+        }
+
+        private string GetAppPath()
+        {
+            return Path.GetFullPath(
+                Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    @"..\..\..\..\..\Software\Padeler\Padeler\bin\Debug\Padeler.exe"
+                )
+            );
         }
 
         [AfterScenario("FZ09")]
