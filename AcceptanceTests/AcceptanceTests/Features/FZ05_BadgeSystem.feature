@@ -9,7 +9,7 @@ Background:
 	Given I am logged into the application for badges
 	And I am on the Home screen
 
-Scenario: Earned badges are displayed on Home screen
+Scenario: User can see earned badges on Home screen
 	When the Home screen is opened
 	Then earned badges should be displayed in the badges panel
 

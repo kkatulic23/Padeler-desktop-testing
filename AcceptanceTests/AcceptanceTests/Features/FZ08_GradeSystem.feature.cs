@@ -18,7 +18,7 @@ namespace AcceptanceTests.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "3.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class FZ05_BadgeSystemFeature
+    public partial class FZ08_GradeSystemFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
@@ -26,12 +26,12 @@ namespace AcceptanceTests.Features
         private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _testContext;
         
         private static string[] featureTags = new string[] {
-                "FZ05"};
+                "FZ08"};
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "FZ05_BadgeSystem", "As a user\r\nI want to earn and see badges\r\nSo that I can track my progress in the " +
-                "app", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "FZ08_GradeSystem", "As a user\r\nI want to rate my match\r\nSo that I can leave feedback for other player" +
+                "s", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
-#line 1 "FZ05_BadgeSystem.feature"
+#line 1 "FZ08_GradeSystem.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -122,28 +122,28 @@ namespace AcceptanceTests.Features
 #line 8
 #line hidden
 #line 9
- await testRunner.GivenAsync("I am logged into the application for badges", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("I am logged into the application for rating", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 10
- await testRunner.AndAsync("I am on the Home screen", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("I open the match list", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/FZ05_BadgeSystem.feature.ndjson", 5);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/FZ08_GradeSystem.feature.ndjson", 5);
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("User can see earned badges on Home screen")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User can see earned badges on Home screen")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ05_BadgeSystem")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ05")]
-        public async global::System.Threading.Tasks.Task UserCanSeeEarnedBadgesOnHomeScreen()
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("User can open the rating form")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User can open the rating form")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ08_GradeSystem")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ08")]
+        public async global::System.Threading.Tasks.Task UserCanOpenTheRatingForm()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User can see earned badges on Home screen", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User can open the rating form", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
 #line 12
@@ -160,25 +160,25 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 13
- await testRunner.WhenAsync("the Home screen is opened", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("I open the rating form for the first available match", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 14
- await testRunner.ThenAsync("earned badges should be displayed in the badges panel", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("the rating form should be displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Swipe can unlock a new badge")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Swipe can unlock a new badge")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ05_BadgeSystem")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ05")]
-        public async global::System.Threading.Tasks.Task SwipeCanUnlockANewBadge()
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("User can save a rating with a comment")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User can save a rating with a comment")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ08_GradeSystem")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ08")]
+        public async global::System.Threading.Tasks.Task UserCanSaveARatingWithAComment()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "1";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Swipe can unlock a new badge", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User can save a rating with a comment", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
 #line 16
@@ -195,34 +195,37 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 17
- await testRunner.GivenAsync("I remember the current number of displayed badges", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.WhenAsync("I open the rating form for the first available match", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 18
- await testRunner.WhenAsync("I perform one swipe action", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.AndAsync("I set the rating to 5", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 19
- await testRunner.ThenAsync("a badge unlock message may appear", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.AndAsync("I enter the comment \"Odlican suigrac\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 20
- await testRunner.AndAsync("the number of displayed badges should stay the same or increase", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("I submit the rating", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 21
+ await testRunner.ThenAsync("the rating should be saved successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("User can see previously earned badges on Home screen")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User can see previously earned badges on Home screen")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ05_BadgeSystem")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ05")]
-        public async global::System.Threading.Tasks.Task UserCanSeePreviouslyEarnedBadgesOnHomeScreen()
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("User cannot rate the same player twice")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User cannot rate the same player twice")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ08_GradeSystem")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ08")]
+        public async global::System.Threading.Tasks.Task UserCannotRateTheSamePlayerTwice()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "2";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User can see previously earned badges on Home screen", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User cannot rate the same player twice", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 22
+#line 23
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -235,14 +238,14 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line 8
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 23
- await testRunner.GivenAsync("badges are already displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
 #line 24
- await testRunner.WhenAsync("I reopen the Home screen", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.GivenAsync("I have already rated the first available match user", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 25
- await testRunner.ThenAsync("earned badges should still be displayed in the badges panel", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync("I try to rate the same user again", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 26
+ await testRunner.ThenAsync("an error message about duplicate rating should appear", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
