@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
@@ -11,8 +12,6 @@ namespace AcceptanceTests.StepDefinitions
     [Binding]
     public class FZ04_InteractionStepDefinitions
     {
-        private const string appPath = @"C:\Users\Fiæo\source\repos\tikpp2526-fgrgac-kkatulic-kkrsak\Software\Padeler\Padeler\bin\Debug\Padeler.exe";
-
         private Application _application;
         private UIA3Automation _automation;
         private AutomationElement _frontCard;
@@ -21,10 +20,20 @@ namespace AcceptanceTests.StepDefinitions
         [BeforeScenario("FZ04")]
         public void Setup()
         {
-            _application = Application.Launch(appPath);
+            _application = Application.Launch(GetAppPath());
             _application.WaitWhileMainHandleIsMissing();
             _automation = new UIA3Automation();
             Thread.Sleep(2000);
+        }
+
+        private string GetAppPath()
+        {
+            return Path.GetFullPath(
+                Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    @"..\..\..\..\..\Software\Padeler\Padeler\bin\Debug\Padeler.exe"
+                )
+            );
         }
 
         [AfterScenario("FZ04")]

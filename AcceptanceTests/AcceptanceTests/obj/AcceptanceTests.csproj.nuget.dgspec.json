@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fićo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj": {}
+    "D:\\Kristian\\Faks\\6. semestar\\TKPP\\tikpp26-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fićo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj": {
+    "D:\\Kristian\\Faks\\6. semestar\\TKPP\\tikpp26-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fićo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
+        "projectUniqueName": "D:\\Kristian\\Faks\\6. semestar\\TKPP\\tikpp26-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
         "projectName": "AcceptanceTests",
-        "projectPath": "C:\\Users\\Fićo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
-        "packagesPath": "C:\\Users\\Fićo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fićo\\Source\\Repos\\tikpp2526-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\obj\\",
+        "projectPath": "D:\\Kristian\\Faks\\6. semestar\\TKPP\\tikpp26-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\AcceptanceTests.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "D:\\Kristian\\Faks\\6. semestar\\TKPP\\tikpp26-fgrgac-kkatulic-kkrsak\\AcceptanceTests\\AcceptanceTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Fićo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
