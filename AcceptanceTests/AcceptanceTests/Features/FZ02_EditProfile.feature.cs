@@ -18,7 +18,7 @@ namespace AcceptanceTests.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "3.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class FZ02_ProfileEditingFeature
+    public partial class FZ02_EditProfileFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
@@ -28,7 +28,7 @@ namespace AcceptanceTests.Features
         private static string[] featureTags = new string[] {
                 "FZ02"};
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "FZ02_ProfileEditing", "As a user\r\nI want to edit my profile\r\nSo that I can keep my profile data updated", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "FZ02_EditProfile", "As a user\r\nI want to edit my profile\r\nSo that I can keep my profile data updated", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "FZ02_EditProfile.feature"
 #line hidden
@@ -135,7 +135,7 @@ namespace AcceptanceTests.Features
         
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Existing profile data is displayed")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Existing profile data is displayed")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_ProfileEditing")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_EditProfile")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ02")]
         public async global::System.Threading.Tasks.Task ExistingProfileDataIsDisplayed()
         {
@@ -167,7 +167,7 @@ await this.FeatureBackgroundAsync();
         
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("User can successfully save valid profile changes")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User can successfully save valid profile changes")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_ProfileEditing")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_EditProfile")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ02")]
         public async global::System.Threading.Tasks.Task UserCanSuccessfullySaveValidProfileChanges()
         {
@@ -205,7 +205,7 @@ await this.FeatureBackgroundAsync();
         
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("System does not allow saving with empty required field")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("System does not allow saving with empty required field")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_ProfileEditing")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_EditProfile")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ02")]
         public async global::System.Threading.Tasks.Task SystemDoesNotAllowSavingWithEmptyRequiredField()
         {
@@ -243,7 +243,7 @@ await this.FeatureBackgroundAsync();
         
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("System does not allow invalid email format")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("System does not allow invalid email format")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_ProfileEditing")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_EditProfile")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ02")]
         public async global::System.Threading.Tasks.Task SystemDoesNotAllowInvalidEmailFormat()
         {
@@ -281,7 +281,7 @@ await this.FeatureBackgroundAsync();
         
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Changes are not saved if user leaves without clicking Save")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Changes are not saved if user leaves without clicking Save")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_ProfileEditing")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "FZ02_EditProfile")]
         [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FZ02")]
         public async global::System.Threading.Tasks.Task ChangesAreNotSavedIfUserLeavesWithoutClickingSave()
         {

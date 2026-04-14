@@ -1,5 +1,5 @@
 ﻿@FZ02
-Feature: FZ02_ProfileEditing
+Feature: FZ02_EditProfile
 
 As a user
 I want to edit my profile
