@@ -37,16 +37,6 @@ namespace AcceptanceTests.StepDefinitions
             );
         }
 
-        private string GetAppPath()
-        {
-            return Path.GetFullPath(
-                Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    @"..\..\..\..\..\Software\Padeler\Padeler\bin\Debug\Padeler.exe"
-                )
-            );
-        }
-
         [AfterScenario("FZ09")]
         public void CleanUp()
         {
