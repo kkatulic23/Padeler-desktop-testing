@@ -5,4 +5,5 @@
 /.vs
 /bin
 /obj
-AcceptanceTests/AcceptanceTests/obj
+/AcceptanceTests/AcceptanceTests/obj
+/AcceptanceTests/AcceptanceTests/bin
