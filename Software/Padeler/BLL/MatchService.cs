@@ -71,17 +71,22 @@ namespace BLL
                     continue;
                 }
 
-                rows.Add(new MatchRow
-                {
-                    MatchId = m.MatchId,
-                    OtherUserId = m.OtherUserId,
-                    FullName = $"{m.OtherName} {m.OtherSurname}".Trim(),
-                    Phone = m.OtherPhone ?? "",
-                    Nickname = entry?.CustomNickname ?? ""
-                });
+                rows.Add(CreateMatchRow(m, entry));
             }
 
             return rows;
+        }
+
+        private MatchRow CreateMatchRow(MatchDto match, MatchEntryDto entry)
+        {
+            return new MatchRow
+            {
+                MatchId = match.MatchId,
+                OtherUserId = match.OtherUserId,
+                FullName = $"{match.OtherName} {match.OtherSurname}".Trim(),
+                Phone = match.OtherPhone ?? "",
+                Nickname = entry?.CustomNickname ?? ""
+            };
         }
 
         /// <summary>
