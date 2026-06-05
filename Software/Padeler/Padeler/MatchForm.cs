@@ -126,54 +126,59 @@ namespace Padeler
         {
             dgvMatches.Columns.Clear();
 
-            var fullNamceCol = new DataGridViewTextBoxColumn
-            {
-                Name = ColFullName,
-                HeaderText = "Player",
-                DataPropertyName = nameof(MatchRow.FullName),
-                ReadOnly = true
-            };
+            dgvMatches.Columns.Add(CreateTextColumn(
+                ColFullName,
+                "Player",
+                nameof(MatchRow.FullName),
+                true
+            ));
 
-            var nickCol = new DataGridViewTextBoxColumn
-            {
-                Name = ColNickname,
-                HeaderText = "Nickname",
-                DataPropertyName = nameof(MatchRow.Nickname),
-                ReadOnly = false
-            };
+            dgvMatches.Columns.Add(CreateTextColumn(
+                ColNickname,
+                "Nickname",
+                nameof(MatchRow.Nickname),
+                false
+            ));
 
-            var phoneCol = new DataGridViewTextBoxColumn
-            {
-                Name = ColPhone,
-                HeaderText = "Phone",
-                DataPropertyName = nameof(MatchRow.Phone),
-                ReadOnly = true
-            };
+            dgvMatches.Columns.Add(CreateTextColumn(
+                ColPhone,
+                "Phone",
+                nameof(MatchRow.Phone),
+                true
+            ));
 
-            var waCol = new DataGridViewImageColumn
+            dgvMatches.Columns.Add(CreateImageColumn(
+                ColWhatsapp,
+                Properties.Resources.logo
+            ));
+
+            dgvMatches.Columns.Add(CreateImageColumn(
+                ColGrade,
+                Properties.Resources.star
+            ));
+        }
+
+        private DataGridViewTextBoxColumn CreateTextColumn(string name, string headerText, string propertyName, bool readOnly)
+        {
+            return new DataGridViewTextBoxColumn
             {
-                Name = ColWhatsapp,
+                Name = name,
+                HeaderText = headerText,
+                DataPropertyName = propertyName,
+                ReadOnly = readOnly
+            };
+        }
+
+        private DataGridViewImageColumn CreateImageColumn(string name, Image image)
+        {
+            return new DataGridViewImageColumn
+            {
+                Name = name,
                 HeaderText = "",
+                Image = image,
                 ImageLayout = DataGridViewImageCellLayout.Zoom,
                 Width = 15
             };
-
-            var grCol = new DataGridViewImageColumn // Kristian Katulić
-            {
-                Name = ColGrade,
-                HeaderText = "",
-                ImageLayout = DataGridViewImageCellLayout.Zoom,
-                Width = 15
-            };
-
-            grCol.Image = Properties.Resources.star;
-            waCol.Image = Properties.Resources.logo;
-
-            dgvMatches.Columns.Add(fullNamceCol);
-            dgvMatches.Columns.Add(nickCol);
-            dgvMatches.Columns.Add(phoneCol);
-            dgvMatches.Columns.Add(waCol);
-            dgvMatches.Columns.Add(grCol);
         }
 
         private async void btnSave_Click(object sender, EventArgs e) // Filip Grgac
