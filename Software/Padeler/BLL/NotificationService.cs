@@ -12,6 +12,7 @@ namespace BLL
     {
         private readonly NotificationRepository _repo = new NotificationRepository();
         private readonly INotificationPresenter _present;
+        private const string SuccessfulMatch = "MATCH";
 
         public NotificationService(INotificationPresenter present)
         {
@@ -27,9 +28,9 @@ namespace BLL
         {
             var notifications = await _repo.GetNotificationsAsync(userId);
 
-            var unreadMatch = notifications.FirstOrDefault(x => !x.IsRead && x.Type == "MATCH");
+            var unreadMatch = notifications.FirstOrDefault(x => !x.IsRead && x.Type == SuccessfulMatch);
 
-            if (unreadMatch == null)
+            if (unreadMatch == null || _present == null)
             {
                 return;
             }
@@ -46,7 +47,7 @@ namespace BLL
             var notifications = await _repo.GetNotificationsAsync(userId);
 
             var matchNotification = notifications
-                .FirstOrDefault(n => n.Type == "MATCH" && !n.IsRead);
+                .FirstOrDefault(n => n.Type == SuccessfulMatch && !n.IsRead);
 
             if (matchNotification != null)
             {
