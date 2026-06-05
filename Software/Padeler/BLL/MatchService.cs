@@ -26,6 +26,17 @@ namespace BLL
         public async Task<bool> LikeAsync(int fromUserId, int toUserId) // Filip Grgac
         {
             var res = await _matchRepo.SwipeAsync(fromUserId, toUserId, "LIKE");
+
+            if(res == null)
+            {
+                throw new Exception("Nema odgovora od API-ja");
+            }
+
+            if (!res.Success)
+            {
+                throw new Exception(res.Error);
+            }
+
             return res.Success && res.Matched;
         }
 
@@ -35,7 +46,17 @@ namespace BLL
         /// </summary>
         public async Task DislikeAsync(int fromUserId, int toUserId) // Filip Grgac
         {
-            await _matchRepo.SwipeAsync(fromUserId, toUserId, "DISLIKE");
+            var res = await _matchRepo.SwipeAsync(fromUserId, toUserId, "DISLIKE");
+
+            if (res == null)
+            {
+                throw new Exception("Nema odgovora od API-ja");
+            }
+
+            if (!res.Success)
+            {
+                throw new Exception(res.Error);
+            }
         }
 
         /// <summary>
