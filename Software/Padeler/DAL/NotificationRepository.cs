@@ -15,6 +15,11 @@ namespace DAL
         {
             var res = await _api.GetAsync<NotificationListResponse>($"api/notifications/list.php?user_id={userId}");
 
+            if(res == null)
+            {
+                throw new Exception("API nije odgovorio.");
+            }
+
             return res.Notifications ?? new List<Notification>();
         }
 
