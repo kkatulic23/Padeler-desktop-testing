@@ -122,6 +122,29 @@ namespace BLLUnitTests
             A.CallTo(() => userRepository.GetImageForCardAsync(1)).MustNotHaveHappened();
         }
 
+        [Fact]
+        public async Task GetUsersForCardAsync_GivenUserId_ReturnsImage()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUsersRepository>();
+            var expectedImage = new UserImageDto
+            {
+                Success = true,
+                ImageBase64 = "abc",
+                MimeType = "image/png"
+            };
+
+            A.CallTo(() => userRepository.GetImageForCardAsync(2)).Returns(Task.FromResult(expectedImage));
+
+            var service = new UserService(userRepository);
+
+            // Act
+            var result = await service.GetUserImageCardAsync(2);
+
+            // Assert
+            Assert.Equal(expectedImage, result);
+        }
+
         private UserDto CreateLoggedUser()
         {
             return new UserDto
