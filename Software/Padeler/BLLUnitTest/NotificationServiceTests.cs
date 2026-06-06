@@ -37,5 +37,31 @@ namespace BLLUnitTests
             // Assert
             A.CallTo(() => presenter.Show(notification, A<Action>._)).MustHaveHappenedOnceExactly();
         }
+
+        [Fact]
+        public async Task CheckAndShowNotificationAsync_GiveOnlyReadMatchNotification_DoesNoShowNotification()
+        {
+            // Arrange
+            var notificaitonRepository = A.Fake<INotificationRepository>();
+            var presenter = A.Fake<INotificationPresenter>();
+
+            A.CallTo(() => notificaitonRepository.GetNotificationsAsync(1)).Returns(Task.FromResult(new List<Notification>
+            {
+                new Notification
+                {
+                    NotificationId = 5,
+                    Type = "MATCH",
+                    IsRead = true
+                }
+            }));
+
+            var service = new NotificationService(notificaitonRepository, presenter);
+
+            // Act
+            await service.CheckAndShowNotificationAsync(1);
+
+            // Assert
+            A.CallTo(() => presenter.Show(A<Notification>._, A<Action>._)).MustNotHaveHappened();
+        }
     }
 }
