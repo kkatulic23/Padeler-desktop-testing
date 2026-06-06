@@ -241,5 +241,38 @@ namespace BLLUnitTests
             // Assert
             Assert.Empty(result);
         }
+
+        [Fact]
+        public async Task GetMatchedEntries_GivenNoEntry_ReturnsRowWithEmptyNickname()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            A.CallTo(() => matchRepository.GetMyMatchesAsync(1)).Returns(Task.FromResult(new List<MatchDto>
+            {
+                new MatchDto
+                {
+                    MatchId = 10,
+                    OtherUserId = 2,
+                    OtherName = "Karlo",
+                    OtherSurname = "Kršak",
+                    OtherPhone = null
+                }
+            }));
+
+            A.CallTo(() => matchRepository.FindAllForUsersAsync(1)).Returns(Task.FromResult(new List<MatchEntryDto>()));
+
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            var result = await service.GetMatchedEntries(1);
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal("Karlo Kršak", result[0].FullName);
+            Assert.Equal("", result[0].Nickname);
+            Assert.Equal("", result[0].Phone);
+        }
     }
 }
