@@ -115,5 +115,30 @@ namespace BLLUnitTests
             // Assert
             A.CallTo(() => notificaitonRepository.MarkAsReadAsync(5)).MustHaveHappenedOnceExactly();
         }
+
+        [Fact]
+        public async Task CheckAndShowNotificationAsync_GivenNullPresenter_DoesNotShowNotification()
+        {
+            // Arrange
+            var notificaitonRepository = A.Fake<INotificationRepository>();
+
+            A.CallTo(() => notificaitonRepository.GetNotificationsAsync(1)).Returns(Task.FromResult(new List<Notification>
+            {
+                new Notification
+                {
+                    NotificationId = 5,
+                    Type = "MATCH",
+                    IsRead = false
+                }
+            }));
+
+            var service = new NotificationService(notificaitonRepository, null);
+
+            // Act
+            var exception = await Record.ExceptionAsync(() => service.CheckAndShowNotificationAsync(1));
+
+            // Assert
+            Assert.Null(exception);
+        }
     }
 }
