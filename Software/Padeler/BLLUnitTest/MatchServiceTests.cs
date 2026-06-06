@@ -56,5 +56,23 @@ namespace BLLUnitTests
             // Assert
             Assert.True(result);
         }
+
+        [Fact]
+        public async Task LikeAsync_GivenNullApiResponse_ThrowsException()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            A.CallTo(() => swipeRepository.SwipeAsync(1, 2, "LIKE")).Returns(Task.FromResult<SwipeResponse>(null));
+
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            Func<Task> act = async () => await service.LikeAsync(1, 2);
+
+            // Assert
+            await Assert.ThrowsAsync<Exception>(act);
+        }
     }
 }
