@@ -10,11 +10,15 @@ namespace BLL
 {
     public class UserService
     {
-        private readonly UsersRepository _usersRepository;
+        private readonly IUsersRepository _usersRepository;
 
-        public UserService()
+        public UserService() : this(new UsersRepository())
         {
-            _usersRepository = new UsersRepository();
+        }
+
+        public UserService(IUsersRepository usersRepository)
+        {
+            _usersRepository = usersRepository;
         }
 
         /// <summary>

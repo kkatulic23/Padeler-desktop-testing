@@ -10,14 +10,20 @@ namespace BLL
 {
     public class MatchService : IMatchUserService
     {
-        private readonly MatchesRepository _matchRepo;
-        private readonly MatchListRepository _repo;
+        private readonly ISwipeRepository _matchRepo;
+        private readonly IMatchRepository _repo;
 
-        public MatchService()
+        public MatchService() : this(new MatchesRepository(), new MatchListRepository())
         {
-            _matchRepo = new MatchesRepository();
-            _repo = new MatchListRepository();
         }
+
+        public MatchService(ISwipeRepository matchRepo, IMatchRepository repo)
+        {
+            _matchRepo = matchRepo;
+            _repo = repo;
+        }
+
+
         /// <summary>
         /// Registrira "LIKE" akciju između dva korisnika.
         /// Ako oba korisnika međusobno označe "LIKE", metoda vraća true
