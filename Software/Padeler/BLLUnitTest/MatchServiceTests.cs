@@ -158,5 +158,49 @@ namespace BLLUnitTests
             // Assert
             await Assert.ThrowsAsync<Exception>(act);
         }
+
+        [Fact]
+        public async Task GetMatchedEntries_GivenVisibleMatches_ReturnsRows()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            A.CallTo(() => matchRepository.GetMyMatchesAsync(1)).Returns(Task.FromResult(new List<MatchDto>
+            {
+                new MatchDto
+                {
+                    MatchId = 10,
+                    OtherUserId = 2,
+                    OtherName = "Kristian",
+                    OtherSurname = "Katulić",
+                    OtherPhone = "0912543678"
+                }
+            }));
+
+            A.CallTo(() => matchRepository.FindAllForUsersAsync(1)).Returns(Task.FromResult(new List<MatchEntryDto>
+            {
+                new MatchEntryDto
+                {
+                    CurrentUserId = 1,
+                    MatchedUserId = 2,
+                    CustomNickname = "Kolega",
+                    IsHidden = false
+                }
+            }));
+
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            var result = await service.GetMatchedEntries(1);
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal(10, result[0].MatchId);
+            Assert.Equal(2, result[0].OtherUserId);
+            Assert.Equal("Kristian Katulić", result[0].FullName);
+            Assert.Equal("0912543678", result[0].Phone);
+            Assert.Equal("Kolega", result[0].Nickname);
+        }
     }
 }
