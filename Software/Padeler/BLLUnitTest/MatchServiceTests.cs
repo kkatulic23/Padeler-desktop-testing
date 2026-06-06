@@ -298,5 +298,28 @@ namespace BLLUnitTests
             Assert.True(result);
             A.CallTo(() => matchRepository.SaveAsync(entry)).MustHaveHappenedOnceExactly();
         }
+
+        [Fact]
+        public async Task DeleteEntry_GivenMatchEntry_SavesEntryAndReturnsTrue()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            var entry = new MatchEntryDto
+            {
+                CurrentUserId = 1,
+                MatchedUserId = 2
+            };
+
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            var result = await service.DeleteEntry(entry);
+
+            // Assert
+            Assert.True(result);
+            A.CallTo(() => matchRepository.HideAsync(1, 2)).MustHaveHappenedOnceExactly();
+        }
     }
 }
