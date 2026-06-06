@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class NotificationRepository // Filip Grgac
+    public class NotificationRepository : INotificationRepository // Filip Grgac
     {
         private readonly ApiClient _api = new ApiClient();
 

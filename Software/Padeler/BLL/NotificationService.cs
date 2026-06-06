@@ -10,12 +10,17 @@ namespace BLL
 {
     public class NotificationService : INotificationService // Filip Grgac
     {
-        private readonly NotificationRepository _repo = new NotificationRepository();
+        private readonly INotificationRepository _repo;
         private readonly INotificationPresenter _present;
         private const string SuccessfulMatch = "MATCH";
 
-        public NotificationService(INotificationPresenter present)
+        public NotificationService(INotificationPresenter present) : this(new NotificationRepository(), present)
         {
+        }
+
+        public NotificationService(INotificationRepository repo, INotificationPresenter present)
+        {
+            _repo = repo;
             _present = present;
         }
 
