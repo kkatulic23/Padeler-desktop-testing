@@ -167,5 +167,31 @@ namespace BLLUnitTests
             // Assert
             A.CallTo(() => notificaitonRepository.MarkAsReadAsync(A<int>._)).MustHaveHappenedOnceExactly();
         }
+
+        [Fact]
+        public async Task MarkLatestMatchAsReadAsync_GivenNoUnreadMatchNotification_DoesNotMarksNotificationAsRead()
+        {
+            // Arrange
+            var notificaitonRepository = A.Fake<INotificationRepository>();
+            var presenter = A.Fake<INotificationPresenter>();
+
+            A.CallTo(() => notificaitonRepository.GetNotificationsAsync(1)).Returns(Task.FromResult(new List<Notification>
+            {
+                new Notification
+                {
+                    NotificationId = 5,
+                    Type = "MESSAGE",
+                    IsRead = false
+                }
+            }));
+
+            var service = new NotificationService(notificaitonRepository, presenter);
+
+            // Act
+            await service.MarkLatestMatchAsReadAsync(1);
+
+            // Assert
+            A.CallTo(() => notificaitonRepository.MarkAsReadAsync(A<int>._)).MustNotHaveHappened();
+        }
     }
 }

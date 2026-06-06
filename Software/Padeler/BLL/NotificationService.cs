@@ -2,6 +2,7 @@
 using EL;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace BLL
         private readonly INotificationPresenter _present;
         private const string SuccessfulMatch = "MATCH";
 
+        [ExcludeFromCodeCoverage]
         public NotificationService(INotificationPresenter present) : this(new NotificationRepository(), present)
         {
         }
