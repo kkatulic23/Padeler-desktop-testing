@@ -20,8 +20,4 @@
     <ProjectReference Include="..\EL\EL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>
