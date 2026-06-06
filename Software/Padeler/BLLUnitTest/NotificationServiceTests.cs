@@ -1,0 +1,41 @@
+﻿using BLL;
+using DAL;
+using EL;
+using FakeItEasy;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace BLLUnitTests
+{
+    public class NotificationServiceTests
+    {
+        [Fact]
+        public async Task CheckAndShowNotificationAsync_GivenUnreadMatchNotification_ShowNotification()
+        {
+            // Arrange
+            var notificaitonRepository = A.Fake<INotificationRepository>();
+            var presenter = A.Fake<INotificationPresenter>();
+
+            var notification = new Notification
+            {
+                NotificationId = 5,
+                Type = "MATCH",
+                IsRead = false
+            };
+
+            A.CallTo(() => notificaitonRepository.GetNotificationsAsync(1)).Returns(Task.FromResult(new List<Notification> { notification }));
+
+            var service = new NotificationService(notificaitonRepository, presenter);
+
+            // Act
+            await service.CheckAndShowNotificationAsync(1);
+
+            // Assert
+            A.CallTo(() => presenter.Show(notification, A<Action>._)).MustHaveHappenedOnceExactly();
+        }
+    }
+}
