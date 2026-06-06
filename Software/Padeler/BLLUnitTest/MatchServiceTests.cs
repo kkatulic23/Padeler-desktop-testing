@@ -274,5 +274,29 @@ namespace BLLUnitTests
             Assert.Equal("", result[0].Nickname);
             Assert.Equal("", result[0].Phone);
         }
+
+        [Fact]
+        public async Task UpdateEntry_GivenMatchEntry_SavesEntryAndReturnsTrue()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            var entry = new MatchEntryDto
+            {
+                CurrentUserId = 1,
+                MatchedUserId = 2,
+                CustomNickname = "Nadimak"
+            };
+
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            var result = await service.UpdateEntry(entry);
+
+            // Assert
+            Assert.True(result);
+            A.CallTo(() => matchRepository.SaveAsync(entry)).MustHaveHappenedOnceExactly();
+        }
     }
 }
