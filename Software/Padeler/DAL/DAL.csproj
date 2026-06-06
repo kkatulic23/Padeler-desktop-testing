@@ -88,6 +88,8 @@
     <Compile Include="BadgesRepository.cs" />
     <Compile Include="CommentsRepository.cs" />
     <Compile Include="IMatchRepository.cs" />
+    <Compile Include="ISwipeRepository.cs" />
+    <Compile Include="IUsersRepository.cs" />
     <Compile Include="MatchesRepository.cs" />
     <Compile Include="MatchListRepository.cs" />
     <Compile Include="NotificationRepository.cs" />
