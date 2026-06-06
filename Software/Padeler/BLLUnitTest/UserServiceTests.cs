@@ -86,6 +86,42 @@ namespace BLLUnitTests
             Assert.Equal(image, result[0].Image);
         }
 
+        [Fact]
+        public async Task GetUsersForCardAsync_GivenNearbyListContainsLoggesUser_SkipsLoggedUser()
+        {
+            // Arrange
+            AuthContext.SetUser(1, "fgrgac23");
+
+            var userRepository = A.Fake<IUsersRepository>();
+
+            A.CallTo(() => userRepository.GetUserAsync(1)).Returns(Task.FromResult(CreateLoggedUser()));
+            A.CallTo(() => userRepository.GetNearbyUsersCardAsync(1, 21, 10, 10, "", "", "", "")).Returns(Task.FromResult(new List<UserDto>
+            {
+                CreateLoggedUser(),
+                new UserDto()
+                {
+                    userId = 3,
+                    name = "Kristian",
+                    surname = "Katulić",
+                    dateOfBirth = DateTime.Today.AddYears(-21),
+                    latitude = 51,
+                    longitude = 15
+                }
+            }));
+
+            A.CallTo(() => userRepository.GetImageForCardAsync(3)).Returns(Task.FromResult(new UserImageDto()));
+
+            var service = new UserService(userRepository);
+
+            //Act
+            var result = await service.GetUsersForCardAsync(10, "", "", "", "");
+
+            //Assert
+            Assert.Single(result);
+            Assert.Equal(3, result[0].UserId);
+            A.CallTo(() => userRepository.GetImageForCardAsync(1)).MustNotHaveHappened();
+        }
+
         private UserDto CreateLoggedUser()
         {
             return new UserDto
