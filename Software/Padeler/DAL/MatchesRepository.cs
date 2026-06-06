@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public sealed class MatchesRepository
+    public sealed class MatchesRepository : ISwipeRepository
     {
         private readonly ApiClient _api = new ApiClient();
 

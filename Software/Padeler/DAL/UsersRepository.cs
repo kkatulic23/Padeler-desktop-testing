@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DAL
 {
-    public sealed class UsersRepository
+    public sealed class UsersRepository : IUsersRepository
     {
         private readonly ApiClient _api = new ApiClient();
 
