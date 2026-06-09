@@ -9,7 +9,14 @@ namespace DAL
 {
     public sealed class UsersRepository : IUsersRepository
     {
-        private readonly ApiClient _api = new ApiClient();
+        private readonly ApiClient _api;
+
+        public UsersRepository() : this(new ApiClient()) { }
+
+        public UsersRepository(ApiClient api)
+        {
+            _api = api;
+        }
 
         public async Task<UserDto> GetUserAsync(int userId) // Kristian Katulić
         {

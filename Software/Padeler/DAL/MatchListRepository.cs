@@ -9,7 +9,15 @@ namespace DAL
 {
     public class MatchListRepository : IMatchRepository
     {
-        private readonly ApiClient _api = new ApiClient();
+        private readonly ApiClient _api;
+
+        public MatchListRepository() : this(new ApiClient()) { }
+
+        public MatchListRepository(ApiClient api)
+        {
+            _api = api;
+        }
+
         public async Task<List<MatchEntryDto>> FindAllForUsersAsync(int userId) // Filip Grgac
         {
             var res = await _api.GetAsync<GetMatchEntriesResponse>($"api/match/get_match_entries.php?user_id={userId}");
