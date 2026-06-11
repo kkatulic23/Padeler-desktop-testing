@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Padeler
 {
-    public partial class GradeForm : Form
+    public partial class GradeForm : Form // Kristian Katulić
     {
         private readonly int _commentedId;
         private readonly int _commenterId;
@@ -29,7 +29,7 @@ namespace Padeler
                 int grade = (int)nudGrade.Value;
                 string comment = rtbComment.Text.Trim();
 
-                int commentId = await _service.AddRatingAsync(_commentedId, _commenterId, grade, comment);
+                await _service.AddRatingAsync(_commentedId, _commenterId, grade, comment);
 
                 MessageBox.Show($"Grade saved!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

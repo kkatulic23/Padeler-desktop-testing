@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public sealed class CommentsService
+    public sealed class CommentsService // Kristian Katulić
     {
         private readonly CommentsRepository _repo;
 
@@ -40,7 +40,7 @@ namespace BLL
             comment = string.IsNullOrWhiteSpace(comment) ? null : comment.Trim();
 
             var ratedIds = await _repo.GetRatedIdsAsync(commenterId);
-            if (ratedIds.Contains(commentedId))
+            if (ratedIds != null && ratedIds.Contains(commentedId))
                 throw new InvalidOperationException("You have already graded this user.");
 
             return await _repo.AddRatingAsync(commentedId, commenterId, grade, comment);

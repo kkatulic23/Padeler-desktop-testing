@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BLL
 {
-    public class ImageConverter
+    public class ImageConverter // Kristian Katulić
     {
         private const int MaxImageSizeBytes = 600000; // 600 KB
         /// <summary>

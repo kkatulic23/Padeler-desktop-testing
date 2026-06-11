@@ -9,7 +9,7 @@ using System.IO;
 
 namespace BLL
 {
-    public class ImageService
+    public class ImageService // Kristian Katulić
     {
         public Image ConvertUserImage(UserImageDto userImage, Image fallback)
         {

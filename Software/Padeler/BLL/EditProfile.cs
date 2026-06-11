@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class EditProfile
+    public class EditProfile // Kristian Katulić
     {
         private readonly UsersRepository _usersRepository = new UsersRepository();
         public async Task<UserDto> GetUserDataAsync(int userId)
