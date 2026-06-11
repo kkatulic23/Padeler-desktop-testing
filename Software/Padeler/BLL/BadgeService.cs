@@ -24,8 +24,12 @@ namespace BLL
         /// </returns>
         public async Task<(int newSwipeNum, List<BadgeDto> newlyAwarded)> RegisterSwipeAsync(int userId)
         {
+            if (userId <= 0)
+                throw new Exception("Invalid user id.");
             var res = await _repo.AddSwipeAsync(userId);
 
+            if (res == null)
+                throw new Exception("API response is null.");
             if (!res.Success)
                 throw new Exception(res.Error ?? "Add swipe failed.");
 
@@ -41,7 +45,13 @@ namespace BLL
         /// </returns>
         public async Task<List<BadgeDto>> GetUserBadgesAsync(int userId)
         {
+            if (userId <= 0)
+                throw new Exception("Invalid user id.");
+
             var res = await _repo.GetUserBadgesAsync(userId);
+
+            if (res == null)
+                throw new Exception("API response is null.");
 
             if (!res.Success)
                 throw new Exception(res.Error ?? "Get badges failed.");
