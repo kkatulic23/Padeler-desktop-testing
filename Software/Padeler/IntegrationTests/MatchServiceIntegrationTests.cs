@@ -106,6 +106,27 @@ namespace IntegrationTests
             Assert.Equal(3, result[1].OtherUserId);
         }
 
+        [Fact]
+        public async Task GetMatchedEntries_GivenVisibleAndHiddenEntries_ReturnsOnlyVisible()
+        {
+
+            // Arrange
+            StubGet("/api/match/get_my_matches.php", "{\"success\":true,\"matches\":[{\"matchId\":10,\"otherUserId\":2,\"otherName\":\"Kristian\",\"otherSurname\":\"Katulić\",\"otherPhone\":\"0924631257\"},{\"matchId\":11,\"otherUserId\":3,\"otherName\":\"Karlo\",\"otherSurname\":\"Kršak\",\"otherPhone\":\"0912415687\"}]}");
+            StubGet("/api/match/get_match_entries.php", "{\"success\":true,\"entries\":[{\"entryId\":1,\"currentUserId\":1,\"matchedUserId\":2,\"customNickname\":\"Kolega\",\"isHidden\":false},{\"entryId\":2,\"currentUserId\":1,\"matchedUserId\":3,\"customNickname\":\"Skriven\",\"isHidden\":true}]}");
+
+            var service = CreateDefaultMatchService();
+
+            // Act
+            var result = await service.GetMatchedEntries(1);
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal(10, result[0].MatchId);
+            Assert.Equal(2, result[0].OtherUserId);
+            Assert.Equal("Kristian Katulić", result[0].FullName);
+            Assert.Equal("Kolega", result[0].Nickname);
+        }
+
         private MatchService CreateDefaultMatchService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
