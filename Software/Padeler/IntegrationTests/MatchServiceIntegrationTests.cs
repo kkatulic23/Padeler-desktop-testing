@@ -63,6 +63,30 @@ namespace IntegrationTests
             Assert.Equal("API error", exception.Message);
         }
 
+        [Fact]
+        public async Task DislikeAsync_GivenSuccessfulResponse_SendsDislikeRequest()
+        {
+
+            // Arrange
+            StubPost("/api/match/swipe.php", "{\"success\":true,\"matched\":false,\"message\":\"Dislike saved\"}");
+            var service = CreateDefaultMatchService();
+
+            // Act
+            await service.DislikeAsync(1, 2);
+
+            // Assert
+            var requests = _server.LogEntries;
+
+            Assert.Single(requests);
+
+            var request = requests[0].RequestMessage;
+            var body = request.Body ?? "";
+
+            Assert.Contains("\"from_user_id\":1", body);
+            Assert.Contains("\"to_user_id\":2", body);
+            Assert.Contains("\"response\":\"DISLIKE\"", body);
+        }
+
         private MatchService CreateDefaultMatchService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
