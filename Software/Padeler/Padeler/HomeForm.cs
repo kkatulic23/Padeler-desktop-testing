@@ -103,7 +103,7 @@ namespace Padeler
 
             _currentIndex++;
             LoadUser();
-            OnSwiped();
+            OnSwipedAsync();
         }
 
         private void lblDistance_Click(object sender, EventArgs e)
@@ -184,7 +184,7 @@ namespace Padeler
             }
             _currentIndex++;
             LoadUser();
-            OnSwiped();
+            OnSwipedAsync();
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Padeler
         /// Registrira swipe, provjerava je li dodijeljena nova značka
         /// i po potrebi prikazuje obavijest te osvježava prikaz znački.
         /// </summary>
-        private async void OnSwiped() // Kristian Katulić
+        private async Task OnSwipedAsync() // Kristian Katulić
         {
             try
             {
