@@ -49,6 +49,20 @@ namespace IntegrationTests
             Assert.False(result);
         }
 
+        [Fact]
+        public async Task LikeAsync_GivenApiError_ThrowsException()
+        {
+            // Arrange
+            StubPost("/api/match/swipe.php", "{\"success\":false,\"matched\":false,\"error\":\"API error\"}");
+            var service = CreateDefaultMatchService();
+
+            // Act
+            var exception = await Assert.ThrowsAsync<Exception>(() => service.LikeAsync(1, 2));
+
+            // Assert
+            Assert.Equal("API error", exception.Message);
+        }
+
         private MatchService CreateDefaultMatchService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
