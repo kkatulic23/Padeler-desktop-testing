@@ -14,7 +14,7 @@ namespace Padeler
         private readonly BLL.ImageConverter _imageConverter = new BLL.ImageConverter();
         private readonly EditProfile _logic = new EditProfile();
         private readonly Validator _validator = new Validator();
-        public ProfileForm() // Karlo Kršak
+        public ProfileForm()
         {
             InitializeComponent();
             dtpDate.MaxDate = DateTime.Now;
@@ -28,7 +28,7 @@ namespace Padeler
             pbImage.BorderStyle = BorderStyle.FixedSingle;
         }
 
-        private async void ProfileForm_Load(object sender, EventArgs e) // Karlo Kršak
+        private async void ProfileForm_Load(object sender, EventArgs e)
         {
             UserDto user = await _logic.GetUserDataAsync(AuthContext.CurrentUserId);
             txtName.Text = user.name;
@@ -45,7 +45,7 @@ namespace Padeler
                 pbImage.Image = _imageConverter.BytesToImage(user.image);
         }
 
-        private async void btnSave_Click(object sender, EventArgs e) // Karlo Kršak
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             UpdateUserRequest user = new UpdateUserRequest
             {
@@ -62,14 +62,20 @@ namespace Padeler
                 position = cboPosition.SelectedItem.ToString()
             };
             var errors = _validator.ValidateUser(user);
-            var bytes = _imageConverter.ImageToBytes(pbImage.Image);
-            if(bytes.Length > 600000)
+
+            if (pbImage.Image != null)
             {
-                errors.Add("The selected image is too large. Please choose an image smaller than 600KB.");
-            }
-            if (pbImage.Image != null) {
-                user.imageBase64 = bytes;
-                user.mimeType = "image/jpeg";
+                var bytes = _imageConverter.ImageToBytes(pbImage.Image);
+
+                if (bytes != null && bytes.Length > 600000)
+                {
+                    errors.Add("The selected image is too large. Please choose an image smaller than 600KB.");
+                }
+                else
+                {
+                    user.imageBase64 = bytes;
+                    user.mimeType = "image/jpeg";
+                }
             }
             if (errors.Count > 0)
             {
@@ -86,7 +92,7 @@ namespace Padeler
                 MessageBox.Show($"Error updating profile: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnChangeImage_Click(object sender, EventArgs e) // Karlo Kršak
+        private void btnChangeImage_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog
             {
@@ -97,7 +103,16 @@ namespace Padeler
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                _imageConverter.LoadImage(ofd.FileName, pbImage);
+                try
+                {
+                    var oldImage = pbImage.Image;
+                    pbImage.Image = _imageConverter.LoadImage(ofd.FileName);
+                    oldImage?.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Image error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }

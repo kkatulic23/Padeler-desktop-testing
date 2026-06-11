@@ -22,8 +22,9 @@ namespace BLL
                 byte[] bytes = Convert.FromBase64String(userImage.ImageBase64);
 
                 using (var ms = new MemoryStream(bytes))
+                using (var image = Image.FromStream(ms))
                 {
-                    return Image.FromStream(ms);
+                    return new Bitmap(image);
                 }
             }
             catch

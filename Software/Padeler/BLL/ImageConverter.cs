@@ -8,6 +8,7 @@ namespace BLL
 {
     public class ImageConverter
     {
+        private const int MaxImageSizeBytes = 600000; // 600 KB
         /// <summary>
         /// Pretvara sliku u niz bajtova (PNG format).
         /// Koristi se za spremanje slike u bazu podataka.
@@ -16,11 +17,14 @@ namespace BLL
         /// <returns>Niz bajtova slike</returns>
         public byte[] ImageToBytes(Image image)
         {
+            if(image == null)
+            {
+                return null;
+            }
             using (var ms = new MemoryStream())
             {
                 image.Save(ms, ImageFormat.Jpeg);
-                byte[] bytes = ms.ToArray();
-                return bytes;
+                return ms.ToArray();
             }
         }
         /// <summary>
@@ -30,9 +34,13 @@ namespace BLL
         /// <param name="bytes">Niz bajtova slike</param>
         /// <returns>Slika dobivena iz bajtova</returns>
         public Image BytesToImage(byte[] bytes){
-            using (var ms = new MemoryStream(bytes))
+            if(bytes == null || bytes.Length == 0)
             {
-                var image = Image.FromStream(ms);
+                return null;
+            }
+            using (var ms = new MemoryStream(bytes))
+            using (var image = Image.FromStream(ms))
+            {
                 return new Bitmap(image);
             }
         }
@@ -42,22 +50,22 @@ namespace BLL
         /// </summary>
         /// <param name="path">Putanja do slike</param>
         /// <param name="pictureBox">PictureBox u koji se slika učitava</param>
-        public void LoadImage(string path, PictureBox pictureBox)
+        public Image LoadImage(string path)
         {
-            var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var tmp = Image.FromStream(fs);
-            if(ImageToBytes(tmp).Length > 600000)
+            if (string.IsNullOrWhiteSpace(path))
+                throw new Exception("Image path is required.");
+
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (var tmp = Image.FromStream(fs))
+            using (var bitmap = new Bitmap(tmp))
             {
-                MessageBox.Show("The selected image is too large. Please choose an image smaller than 600KB.", "Image Size Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                var bytes = ImageToBytes(bitmap);
+
+                if (bytes.Length > MaxImageSizeBytes)
+                    throw new Exception("The selected image is too large. Please choose an image smaller than 600KB.");
+
+                return new Bitmap(bitmap);
             }
-            if (pictureBox.Image != null)
-            {
-                var old = pictureBox.Image;
-                pictureBox.Image = null;
-                old.Dispose();
-            }
-            pictureBox.Image = new Bitmap(tmp);
         }
     }
 }
