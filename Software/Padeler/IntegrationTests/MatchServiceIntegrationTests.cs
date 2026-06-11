@@ -35,6 +35,20 @@ namespace IntegrationTests
             Assert.True(result);
         }
 
+        [Fact]
+        public async Task LikeAsync_GivenSuccessfulLikeWithoutMatch_ReturnsFalse()
+        {
+            // Arrange
+            StubPost("/api/match/swipe.php", "{\"success\":true,\"matched\":false,\"message\":\"Like saved\"}");
+            var service = CreateDefaultMatchService();
+
+            // Act
+            var result = await service.LikeAsync(1, 2);
+
+            // Assert
+            Assert.False(result);
+        }
+
         private MatchService CreateDefaultMatchService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
