@@ -11,8 +11,17 @@ namespace BLL
 {
     public class BadgeService // Kristian Katulić
     {
-        private readonly BadgesRepository _repo = new BadgesRepository();
-        
+        private readonly IBadgesRepository _repo;
+
+        public BadgeService() : this(new BadgesRepository())
+        {
+        }
+
+        public BadgeService(IBadgesRepository repo)
+        {
+            _repo = repo;
+        }
+
         /// <summary>
         /// Registrira jedan novi swipe korisnika.
         /// Povećava ukupan broj swipeova te vraća ažurirani broj swipeova
