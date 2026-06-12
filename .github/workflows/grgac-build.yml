@@ -1,0 +1,37 @@
+name: Grgac - Build aplikacije Padeler
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'Software/Padeler/**'
+      - '.github/workflows/grgac-build.yml'
+  pull_request:
+    branches: [master]
+    paths:
+      - 'Software/Padeler/**'
+      - '.github/workflows/grgac-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: Software/Padeler
+
+    steps:
+      - name: Dohvat izvornog koda
+        uses: actions/checkout@v4
+
+      - name: Postavljanje MSBuild alata
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Postavljanje NuGet alata
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet paketa
+        run: nuget restore Padeler.sln
+
+      - name: Build rješenja
+        run: msbuild.exe Padeler.sln /p:platform="Any CPU" /p:configuration="Release"
