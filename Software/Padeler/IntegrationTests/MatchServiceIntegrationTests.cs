@@ -171,6 +171,26 @@ namespace IntegrationTests
             Assert.False(result.IsHidden);
         }
 
+        [Fact]
+        public async Task DeleteEntry_GivenValidEntry_ReturnsTrue()
+        {
+            // Arrange
+            StubPost("/api/match/hide_match_entry.php", "{\"success\":true}");
+            var service = CreateDefaultMatchService();
+
+            var entry = new MatchEntryDto
+            {
+                CurrentUserId = 1,
+                MatchedUserId = 2
+            };
+
+            // Act
+            var result = await service.DeleteEntry(entry);
+
+            // Assert
+            Assert.True(result);
+        }
+
         private MatchService CreateDefaultMatchService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
