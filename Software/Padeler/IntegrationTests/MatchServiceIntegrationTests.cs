@@ -151,6 +151,26 @@ namespace IntegrationTests
 
         }
 
+        [Fact]
+        public async Task GetEntry_GivenExistingEntry_ReturnsEntry()
+        {
+            // Arrange
+            StubGet("/api/match/get_match_entry.php", "{\"success\":true,\"entry\":{\"entryId\":5,\"currentUserId\":1,\"matchedUserId\":2,\"customNickname\":\"Kolega\",\"isHidden\":false}}");
+
+            var service = CreateDefaultMatchService();
+
+            // Act
+            var result = await service.GetEntry(1, 2);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(5, result.EntryId);
+            Assert.Equal(1, result.CurrentUserId);
+            Assert.Equal(2, result.MatchedUserId);
+            Assert.Equal("Kolega", result.CustomNickname);
+            Assert.False(result.IsHidden);
+        }
+
         private MatchService CreateDefaultMatchService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
