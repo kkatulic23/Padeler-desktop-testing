@@ -72,6 +72,24 @@ namespace IntegrationTests
             A.CallTo(() => presenter.Show(A<Notification>._, A<Action>._)).MustNotHaveHappened();
         }
 
+        [Fact]
+        public async Task MarkLatestMatchAsReadAsync_GiveUnreadMatchNotification_CallsMarkReadEndpoint()
+        {
+            // Arrange
+            StubNotification("{\"Success\":true,\"Notifications\":[{\"NotificationId\":7,\"UserId\":1,\"Type\":\"MATCH\",\"Title\":\"Novi match\",\"Content\":\"Imate novi match\",\"CreatedAt\":\"2026-01-01T10:00:00\",\"IsRead\":false}]}");
+            StubPost("/api/notifications/mark_read.php", "{\"Success\":true}");
+
+            var presenter = A.Fake<INotificationPresenter>();
+            var service = CreateDefaultNotificationService(presenter);
+
+            // Act
+            await service.MarkLatestMatchAsReadAsync(1);
+
+            // Assert
+            var request = _server.FindLogEntries(Request.Create().WithPath("/api/notifications/mark_read.php").UsingPost());
+            Assert.Single(request);
+        }
+
         private NotificationService CreateDefaultNotificationService(INotificationPresenter presenter)
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
@@ -83,6 +101,11 @@ namespace IntegrationTests
         private void StubNotification(string body)
         {
             _server.Given(Request.Create().WithPath("/api/notifications/list.php").UsingGet()).RespondWith(Response.Create().WithStatusCode(200).WithHeader("Content-Type", "application/json").WithBody(body));
+        }
+
+        private void StubPost(string path, string body)
+        {
+            _server.Given(Request.Create().WithPath(path).UsingPost()).RespondWith(Response.Create().WithStatusCode(200).WithHeader("Content-Type", "application/json").WithBody(body));
         }
 
         public void Dispose()
