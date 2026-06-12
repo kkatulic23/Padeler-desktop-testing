@@ -50,6 +50,28 @@ namespace IntegrationTests
             Assert.Empty(result);
         }
 
+        [Fact]
+        public async Task GetUsersForCardAsync_GiveNearbyUsers_ReturnsUserCards()
+        {
+            // Arrange
+            StubLoggedUserWithLocation();
+            StubGet("/api/users/nearby.php", "{\"success\":true,\"users\":[{\"UserId\":2,\"Name\":\"Ivan\",\"Surname\":\"Ivić\",\"DateOfBirth\":\"2000-05-10\",\"FrequencyOfPlaying\":\"Weekly\",\"Level\":\"Begginer\",\"Position\":\"Left\",\"Rating\":3.8,\"distance_km\":5.1}]}");
+            StubUserImage(2, "{\"success\":true,\"image_base64\":\"abc\",\"mime_type\":\"image/png\"}");
+
+            var service = CreateDefaultUserService();
+
+            // Act
+            var result = await service.GetUsersForCardAsync(10, "", "", "", "");
+
+            // Assert
+            Assert.Equal(2, result[0].UserId);
+            Assert.Equal("Ivan Ivić", result[0].FullName);
+            Assert.Equal("Left", result[0].Position);
+            Assert.Equal("Begginer", result[0].Level);
+            Assert.Equal("Weekly", result[0].FrequencyOfPlaying);
+            Assert.Equal("image/png", result[0].Image.MimeType);
+        }
+
         private UserService CreateDefaultUserService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
@@ -61,6 +83,12 @@ namespace IntegrationTests
         private void StubLoggedUserWithoutLocation()
         {
             StubGet("/api/users/get_user.php", "{\"success\":true,\"user\":{\"UserId\":1,\"Name\":\"Filip\",\"Surname\":\"Grgac\",\"DateOfBirth\":\"2004-11-24\",\"Latitude\":null,\"Longitude\":null}}");
+            StubUserImage(1, "{\"success\":false,\"image_base64\":\"\",\"mime_type\":\"\"}");
+        }
+
+        private void StubLoggedUserWithLocation()
+        {
+            StubGet("/api/users/get_user.php", "{\"success\":true,\"user\":{\"UserId\":1,\"Name\":\"Filip\",\"Surname\":\"Grgac\",\"DateOfBirth\":\"2004-11-24\",\"Latitude\":45.5,\"Longitude\":15.8}}");
             StubUserImage(1, "{\"success\":false,\"image_base64\":\"\",\"mime_type\":\"\"}");
         }
 
