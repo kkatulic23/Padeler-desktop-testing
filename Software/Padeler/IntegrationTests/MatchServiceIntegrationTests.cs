@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DAL;
+using EL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,6 +126,29 @@ namespace IntegrationTests
             Assert.Equal(2, result[0].OtherUserId);
             Assert.Equal("Kristian Katulić", result[0].FullName);
             Assert.Equal("Kolega", result[0].Nickname);
+        }
+
+        [Fact]
+        public async Task UpdateEntry_GivenValidEntry_ReturnsTrue()
+        {
+            // Arrange
+            StubPost("/api/match/save_match_entry.php", "{\"success\":true}");
+            var service = CreateDefaultMatchService();
+
+            var entry = new MatchEntryDto
+            {
+                CurrentUserId = 1,
+                MatchedUserId = 2,
+                CustomNickname = "Novi nadimak",
+                IsHidden = false
+            };
+
+            // Act
+            var result = await service.UpdateEntry(entry);
+
+            // Assert
+            Assert.True(result);
+
         }
 
         private MatchService CreateDefaultMatchService()
