@@ -12,9 +12,11 @@ namespace DAL
     {
         private readonly HttpClient _http;
 
-        public ApiClient()
+        public ApiClient() : this(new Uri("https://grgac.ase-lab.ovh/")) { }
+
+        public ApiClient(Uri baseAddress)
         {
-            _http = new HttpClient { BaseAddress = new Uri("https://grgac.ase-lab.ovh/") };
+            _http = new HttpClient { BaseAddress = baseAddress };
         }
 
         public async Task<T> GetAsync<T>(string relativeUrl) // Kristian Katulić

@@ -9,7 +9,14 @@ namespace DAL
 {
     public class NotificationRepository : INotificationRepository // Filip Grgac
     {
-        private readonly ApiClient _api = new ApiClient();
+        private readonly ApiClient _api;
+
+        public NotificationRepository() : this(new ApiClient()) { }
+
+        public NotificationRepository(ApiClient api)
+        {
+            _api = api;
+        }
 
         public async Task<List<Notification>> GetNotificationsAsync(int userId)
         {

@@ -11,7 +11,14 @@ namespace DAL
 {
     public sealed class MatchesRepository : ISwipeRepository
     {
-        private readonly ApiClient _api = new ApiClient();
+        private readonly ApiClient _api;
+
+        public MatchesRepository() : this(new ApiClient()) { }
+
+        public MatchesRepository(ApiClient api)
+        {
+            _api = api;
+        }
 
         /// <summary>
         /// Šalje korisničku swipe akciju ("LIKE" ili "DISLIKE") prema poslužitelju.
