@@ -125,10 +125,13 @@ namespace Padeler
             {
                 var authService = new AuthService();
                 _profileImagePngBytes = authService.LoadProfileImageAsPngBytes(ofd.FileName);
-                var fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
-                var tmp = Image.FromStream(fs);
-                pbPictureRegister.Image?.Dispose();
-                pbPictureRegister.Image = new Bitmap(tmp);
+
+                using (var fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read))
+                using (var tmp = Image.FromStream(fs))
+                {
+                    pbPictureRegister.Image?.Dispose();
+                    pbPictureRegister.Image = new Bitmap(tmp);
+                }
             }
             catch (Exception ex)
             {
