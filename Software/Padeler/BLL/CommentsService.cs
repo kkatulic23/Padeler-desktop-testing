@@ -9,11 +9,13 @@ namespace BLL
 {
     public sealed class CommentsService // Kristian Katulić
     {
-        private readonly CommentsRepository _repo;
-
-        public CommentsService()
+        private readonly ICommentsRepository _repo;
+        public CommentsService() : this(new CommentsRepository())
         {
-            _repo = new CommentsRepository();
+        }
+        public CommentsService(ICommentsRepository repo)
+        {
+            _repo = repo;
         }
 
         /// <summary>

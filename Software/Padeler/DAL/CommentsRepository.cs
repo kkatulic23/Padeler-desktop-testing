@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public sealed class CommentsRepository
+    public sealed class CommentsRepository : ICommentsRepository
     {
         private readonly ApiClient _api = new ApiClient();
 
@@ -13,7 +13,7 @@ namespace DAL
         /// Dodaje ocjenu (+ opcionalni komentar).
         /// PHP: require_post_fields(['commented_id','commenter_id','grade'])
         /// </summary>
-        public async Task<int> AddRatingAsync(int commentedId, int commenterId, double grade, string comment = null) // Kristian Katulić
+        public async Task<int> AddRatingAsync(int commentedId, int commenterId, int grade, string comment = null) // Kristian Katulić
         {
             if (commentedId <= 0 || commenterId <= 0)
                 throw new Exception("Invalid user ids.");
