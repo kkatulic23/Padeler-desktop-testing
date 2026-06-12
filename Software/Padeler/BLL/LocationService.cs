@@ -47,25 +47,37 @@ namespace BLL
         {
             var tcs = new TaskCompletionSource<(double, double)?>();
             var watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+
+            Action<(double, double)?> complete = result =>
+            {
+                if (tcs.TrySetResult(result))
+                {
+                    watcher.Stop();
+                    watcher.Dispose();
+                }
+            };
+
             watcher.PositionChanged += (s, e) =>
             {
                 if (!e.Position.Location.IsUnknown)
                 {
-                    tcs.TrySetResult((
+                    complete((
                         e.Position.Location.Latitude,
                         e.Position.Location.Longitude
                     ));
-                    watcher.Stop();
                 }
             };
+
             watcher.StatusChanged += (s, e) =>
             {
-                if (e.Status == GeoPositionStatus.Disabled)
+                if (e.Status == GeoPositionStatus.Disabled || e.Status == GeoPositionStatus.NoData)
                 {
-                    tcs.TrySetResult(null);
-                    watcher.Stop();
+                    complete(null);
                 }
             };
+
+            Task.Delay(TimeSpan.FromSeconds(5)).ContinueWith(_ => complete(null));
+
             watcher.Start();
             return tcs.Task;
         }
