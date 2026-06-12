@@ -279,12 +279,20 @@ namespace Padeler
             string frequency = Properties.Settings.Default.FilterFrequency ?? "";
 
             _cards = await _userService.GetUsersForCardAsync(radiusKm, gender, level, position, frequency);
+            _currentIndex = 0;
 
             if (_cards == null || _cards.Count == 0)
             {
+                pbLike.Enabled = false;
+                pbDisslike.Enabled = false;
+
                 MessageBox.Show("There are no users nearby!");
                 return;
             }
+
+            pbLike.Enabled = true;
+            pbDisslike.Enabled = true;
+
             LoadUser();
         }
 
