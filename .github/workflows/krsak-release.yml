@@ -1,0 +1,37 @@
+name: Krsak - Release artefakt
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release-artifact:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: Software/Padeler
+
+    steps:
+      - name: Checkout koda
+        uses: actions/checkout@v4
+
+      - name: Postavljanje MSBuild alata
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Postavljanje NuGet alata
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet paketa
+        run: nuget restore Padeler.sln
+
+      - name: Build Release verzije
+        run: msbuild.exe Padeler.sln /p:platform="Any CPU" /p:configuration="Release"
+
+      - name: Spremanje Release artefakta
+        uses: actions/upload-artifact@v4
+        with:
+          name: Padeler-Release
+          path: Software/Padeler/Padeler/bin/Release/**
