@@ -15,5 +15,7 @@ namespace DAL
 
         Task<UserImageDto> GetImageForCardAsync(int userId);
         Task UpdateUserAsync(UpdateUserRequest user);
+
+        Task<bool> UpdateLocationAsync(int userId, double lat, double lng);
     }
 }

@@ -1,19 +1,28 @@
-﻿using System;
-using System.Device.Location;
+﻿using DAL;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using DAL;
+using System;
 
 namespace BLL
 {
     public class LocationService
     {
-        private readonly UsersRepository _usersRepository;
-        public LocationService() : this(new UsersRepository()) {}
+        private readonly IUsersRepository _usersRepository;
+        private readonly ILocationProvider _locationProvider;
 
-        public LocationService(UsersRepository usersRepository)
+        public LocationService()
+            : this(new UsersRepository(), new GeoCoordinateLocationProvider())
+        {
+        }
+
+        public LocationService(IUsersRepository usersRepository)
+            : this(usersRepository, new GeoCoordinateLocationProvider())
+        {
+        }
+
+        public LocationService(IUsersRepository usersRepository, ILocationProvider locationProvider)
         {
             _usersRepository = usersRepository;
+            _locationProvider = locationProvider;
         }
 
         /// <summary>
@@ -22,11 +31,21 @@ namespace BLL
         /// </summary>
         public async Task<bool> TryUpdateCurrentUserLocationAsync() // Karlo Kršak
         {
-            if (!AuthContext.IsLoggedIn) return false;
-            var location = await TryGetCurrentLocationAsync();
-            if (location == null) return false;
+            if (!AuthContext.IsLoggedIn)
+            {
+                return false;
+            }
+
+            var location = await _locationProvider.GetCurrentLocationAsync();
+
+            if (location == null)
+            {
+                return false;
+            }
+
             double lat = Math.Round(location.Value.lat, 7);
             double lng = Math.Round(location.Value.lng, 7);
+
             try
             {
                 await _usersRepository.UpdateLocationAsync(AuthContext.CurrentUserId, lat, lng);
@@ -36,50 +55,6 @@ namespace BLL
             {
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Asinkrono dohvaća trenutnu geografsku lokaciju korisnika
-        /// koristeći GeoCoordinateWatcher i vraća koordinate ili null
-        /// ako lokacija nije dostupna.
-        /// </summary>
-        private Task<(double lat, double lng)?> TryGetCurrentLocationAsync() // Karlo Kršak
-        {
-            var tcs = new TaskCompletionSource<(double, double)?>();
-            var watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
-
-            Action<(double, double)?> complete = result =>
-            {
-                if (tcs.TrySetResult(result))
-                {
-                    watcher.Stop();
-                    watcher.Dispose();
-                }
-            };
-
-            watcher.PositionChanged += (s, e) =>
-            {
-                if (!e.Position.Location.IsUnknown)
-                {
-                    complete((
-                        e.Position.Location.Latitude,
-                        e.Position.Location.Longitude
-                    ));
-                }
-            };
-
-            watcher.StatusChanged += (s, e) =>
-            {
-                if (e.Status == GeoPositionStatus.Disabled || e.Status == GeoPositionStatus.NoData)
-                {
-                    complete(null);
-                }
-            };
-
-            Task.Delay(TimeSpan.FromSeconds(5)).ContinueWith(_ => complete(null));
-
-            watcher.Start();
-            return tcs.Task;
         }
     }
 }

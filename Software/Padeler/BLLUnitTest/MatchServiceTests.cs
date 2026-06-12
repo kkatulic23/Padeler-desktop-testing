@@ -321,5 +321,71 @@ namespace BLLUnitTests
             Assert.True(result);
             A.CallTo(() => matchRepository.HideAsync(1, 2)).MustHaveHappenedOnceExactly();
         }
+
+        [Fact]
+        public async Task GetMyMatchesAsync_GivenUserId_ReturnsMatches()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            var matches = new List<MatchDto>
+            {
+                new MatchDto
+                {
+                    MatchId = 10,
+                    OtherUserId = 2,
+                    OtherName = "Kristian",
+                    OtherSurname = "Katulić",
+                    OtherPhone = "0912543678"
+                }
+            };
+
+            A.CallTo(() => matchRepository.GetMyMatchesAsync(1)).Returns(Task.FromResult(matches));
+
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            var result = await service.GetMyMatchesAsync(1);
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal(10, result[0].MatchId);
+            Assert.Equal(2, result[0].OtherUserId);
+            Assert.Equal("Kristian", result[0].OtherName);
+            Assert.Equal("Katulić", result[0].OtherSurname);
+            Assert.Equal("0912543678", result[0].OtherPhone);
+            A.CallTo(() => matchRepository.GetMyMatchesAsync(1)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task GetEntry_GivenCurrentUserIdAndMatchedUserId_ReturnsEntry()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            var entry = new MatchEntryDto
+            {
+                CurrentUserId = 1,
+                MatchedUserId = 2,
+                CustomNickname = "Nadimak",
+                IsHidden = false
+            };
+
+            A.CallTo(() => matchRepository.FindByUsersAsync(1, 2)).Returns(Task.FromResult(entry));
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            var result = await service.GetEntry(1, 2);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(1, result.CurrentUserId);
+            Assert.Equal(2, result.MatchedUserId);
+            Assert.Equal("Nadimak", result.CustomNickname);
+            Assert.False(result.IsHidden);
+            A.CallTo(() => matchRepository.FindByUsersAsync(1, 2)).MustHaveHappenedOnceExactly();
+        }
     }
 }
