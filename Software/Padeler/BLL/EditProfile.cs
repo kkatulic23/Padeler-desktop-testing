@@ -6,7 +6,14 @@ namespace BLL
 {
     public class EditProfile // Kristian Katulić
     {
-        private readonly UsersRepository _usersRepository = new UsersRepository();
+        private readonly IUsersRepository _usersRepository;
+        public EditProfile() : this(new UsersRepository())
+        {
+        }
+        public EditProfile(IUsersRepository usersRepository)
+        {
+            _usersRepository = usersRepository;
+        }
         public async Task<UserDto> GetUserDataAsync(int userId)
         {
             return await _usersRepository.GetUserAsync(userId);

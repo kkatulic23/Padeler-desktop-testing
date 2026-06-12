@@ -14,5 +14,6 @@ namespace DAL
         Task<List<UserDto>> GetNearbyUsersCardAsync(int currentUserId, double lat, double lng, int radius, string gender, string level, string position, string frequency);
 
         Task<UserImageDto> GetImageForCardAsync(int userId);
+        Task UpdateUserAsync(UpdateUserRequest user);
     }
 }

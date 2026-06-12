@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class BadgesRepository // Kristian Katulić
+    public class BadgesRepository : IBadgesRepository // Kristian Katulić
     {
         private readonly ApiClient _api = new ApiClient();
 

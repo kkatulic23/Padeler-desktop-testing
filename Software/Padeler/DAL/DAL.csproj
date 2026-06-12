@@ -87,6 +87,8 @@
     <Compile Include="AuthRepository.cs" />
     <Compile Include="BadgesRepository.cs" />
     <Compile Include="CommentsRepository.cs" />
+    <Compile Include="IBadgesRepository.cs" />
+    <Compile Include="ICommentsRepository.cs" />
     <Compile Include="IMatchRepository.cs" />
     <Compile Include="INotificationRepository.cs" />
     <Compile Include="ISwipeRepository.cs" />
