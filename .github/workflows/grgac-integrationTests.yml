@@ -40,7 +40,7 @@ jobs:
         run: msbuild.exe Padeler.sln /p:platform="Any CPU" /p:configuration="Release"
 
       - name: Pokretanje integracijskih testova
-        run: vstest.console.exe .\IntegrationTests\bin\Release\net48\IntegrationTests.dll /Logger:trx /ResultsDirectory:TestResults
+        run: vstest.console.exe .\IntegrationTests\bin\Release\net48\IntegrationTests.dll /Logger:"trx;LogFileName=integration-tests.trx" /ResultsDirectory:TestResults
 
       - name: Spremanje rezultata testova
         if: always()
