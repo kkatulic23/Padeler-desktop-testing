@@ -72,6 +72,24 @@ namespace IntegrationTests
             Assert.Equal("image/png", result[0].Image.MimeType);
         }
 
+        [Fact]
+        public async Task GetUsersForCardAsync_GiveNearbyResponseContainsLoggedUser_ExcludesLoggedUser_ReturnsUserCards()
+        {
+            // Arrange
+            StubLoggedUserWithLocation();
+            StubGet("/api/users/nearby.php", "{\"success\":true,\"users\":[{\"UserId\":1,\"Name\":\"Filip\",\"Surname\":\"Grgac\",\"DateOfBirth\":\"2004-11-24\",\"FrequencyOfPlaying\":\"Often\",\"Level\":\"Intermediate\",\"Position\":\"Right\",\"Rating\":5,\"distance_km\":0},{\"UserId\":2,\"Name\":\"Ivan\",\"Surname\":\"Ivić\",\"DateOfBirth\":\"2000-05-10\",\"FrequencyOfPlaying\":\"Weekly\",\"Level\":\"Begginer\",\"Position\":\"Left\",\"Rating\":3.8,\"distance_km\":5.1}]}");
+            StubUserImage(2, "{\"success\":true,\"image_base64\":\"abc\",\"mime_type\":\"image/png\"}");
+
+            var service = CreateDefaultUserService();
+
+            // Act
+            var result = await service.GetUsersForCardAsync(10, "", "", "", "");
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal(2, result[0].UserId);
+        }
+
         private UserService CreateDefaultUserService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
