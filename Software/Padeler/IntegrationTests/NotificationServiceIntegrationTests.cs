@@ -5,6 +5,7 @@ using FakeItEasy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using WireMock.RequestBuilders;
@@ -37,6 +38,22 @@ namespace IntegrationTests
 
             // Assert
             A.CallTo(() => presenter.Show(A<Notification>.That.Matches(n => n.NotificationId == 5 && n.Type == "MATCH" && !n.IsRead), A<Action>._)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task CheckAndShowNotificationAsync_GiveReadMatchNotification_DoesNotShowNotification()
+        {
+            // Arrange
+            StubNotification("{\"Success\":true,\"Notifications\":[{\"NotificationId\":5,\"UserId\":1,\"Type\":\"MATCH\",\"Title\":\"Novi mathc\",\"Content\":\"Imate novi match\",\"CreatedAt\":\"2026-01-01T10:00:00\",\"IsRead\":true}]}");
+
+            var presenter = A.Fake<INotificationPresenter>();
+            var service = CreateDefaultNotificationService(presenter);
+
+            // Act
+            await service.CheckAndShowNotificationAsync(1);
+
+            // Assert
+            A.CallTo(() => presenter.Show(A<Notification>._, A<Action>._)).MustNotHaveHappened();
         }
 
         private NotificationService CreateDefaultNotificationService(INotificationPresenter presenter)
