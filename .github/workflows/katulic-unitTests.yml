@@ -1,0 +1,44 @@
+name: Katulić - Pokretanje jediničnih testova
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: Software/Padeler
+
+    steps:
+      - name: Checkout koda
+        uses: actions/checkout@v4
+
+      - name: Postavljanje .NET SDK-a
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Postavljanje MSBuild alata
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet paketa
+        run: nuget restore Padeler.sln
+
+      - name: Build rješenja
+        run: msbuild.exe Padeler.sln /p:platform="Any CPU" /p:configuration="Release"
+
+      - name: Pokretanje BLL jediničnih testova
+        run: dotnet test BLLUnitTest/BLLUnitTests.csproj --configuration Release --no-build --logger "trx;LogFileName=bll-unit-tests.trx" --results-directory TestResults
+
+      - name: Spremanje rezultata testova
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: katulic-test-results
+          path: Software/Padeler/TestResults/*.trx
