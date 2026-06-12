@@ -18,7 +18,6 @@ namespace Padeler
             InitializeComponent();
             trkRadius.Value = Properties.Settings.Default.RadiusKm;
             lblRadius.Text = $"{trkRadius.Value} km";
-            trkRadius.ValueChanged += (s, e) => lblRadius.Text = $"{trkRadius.Value} km";
 
             var combo = new ComboFiller();
 
