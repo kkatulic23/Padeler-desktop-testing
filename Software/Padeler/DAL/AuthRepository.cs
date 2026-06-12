@@ -7,7 +7,7 @@ using EL;
 
 namespace DAL
 {
-    public class AuthRepository
+    public class AuthRepository : IAuthRepository
     {
         private readonly ApiClient _api;
         public AuthRepository(ApiClient api)

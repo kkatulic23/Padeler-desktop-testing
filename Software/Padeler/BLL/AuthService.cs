@@ -14,13 +14,17 @@ namespace BLL
 {
     public class AuthService
     {
-        private readonly AuthRepository _repo;
+        private readonly IAuthRepository _repo;
         private const int MaxImageBytes = 600000;
         private const string ProfileMimeType = "image/jpeg";
 
-        public AuthService()
+        public AuthService() : this(new AuthRepository(new ApiClient()))
         {
-            _repo = new AuthRepository(new ApiClient());
+        }
+
+        public AuthService(IAuthRepository repo)
+        {
+            _repo = repo;
         }
 
         public async Task<int> LoginAsync(string username, string password) // Karlo Kršak
