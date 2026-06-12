@@ -1,4 +1,4 @@
-name: Grgac - Build aplikacije Padeler
+name: Grgac - Pokretanje integracijskih testova
 on:
   push:
     branches: [master]
@@ -30,8 +30,14 @@ jobs:
       - name: Postavljanje NuGet alata
         uses: NuGet/setup-nuget@v2
 
+      - name: Postavljanje VSTest alata
+        uses: darenm/Setup-VSTest@v1.3
+
       - name: Restore NuGet paketa
         run: nuget restore Padeler.sln
 
       - name: Build rješenja
         run: msbuild.exe Padeler.sln /p:platform="Any CPU" /p:configuration="Release"
+
+      - name: Pokretanje integracijskih testova
+        run: vstest.console.exe .\IntegrationTests\bin\Release\net48\IntegrationTests.dll
