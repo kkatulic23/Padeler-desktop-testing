@@ -4,12 +4,12 @@ on:
     branches: [master]
     paths:
       - 'Software/Padeler/**'
-      - '.github/workflows/grgac-build.yml'
+      - '.github/workflows/grgac-integrationTests.yml'
   pull_request:
     branches: [master]
     paths:
       - 'Software/Padeler/**'
-      - '.github/workflows/grgac-build.yml'
+      - '.github/workflows/grgac-integrationTests.yml'
   workflow_dispatch:
 
 jobs:
@@ -40,4 +40,11 @@ jobs:
         run: msbuild.exe Padeler.sln /p:platform="Any CPU" /p:configuration="Release"
 
       - name: Pokretanje integracijskih testova
-        run: vstest.console.exe .\IntegrationTests\bin\Release\net48\IntegrationTests.dll
+        run: vstest.console.exe .\IntegrationTests\bin\Release\net48\IntegrationTests.dll /Logger:trx /ResultsDirectory:TestResults
+
+      - name: Spremanje rezultata testova
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grgac-integrationTests-results
+          path: Software/Padeler/TestResults/*.trx
