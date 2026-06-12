@@ -28,7 +28,7 @@ namespace IntegrationTests
         public async Task CheckAndShowNotificationAsync_GiveUnreadMatchNotification_ShowNotification()
         {
             // Arrange
-            StubNotification("{\"Success\":true,\"Notifications\":[{\"NotificationId\":5,\"UserId\":1,\"Type\":\"MATCH\",\"Title\":\"Novi mathc\",\"Content\":\"Imate novi match\",\"CreatedAt\":\"2026-01-01T10:00:00\",\"IsRead\":false}]}");
+            StubNotification("{\"Success\":true,\"Notifications\":[{\"NotificationId\":5,\"UserId\":1,\"Type\":\"MATCH\",\"Title\":\"Novi match\",\"Content\":\"Imate novi match\",\"CreatedAt\":\"2026-01-01T10:00:00\",\"IsRead\":false}]}");
 
             var presenter = A.Fake<INotificationPresenter>();
             var service = CreateDefaultNotificationService(presenter);
@@ -44,7 +44,23 @@ namespace IntegrationTests
         public async Task CheckAndShowNotificationAsync_GiveReadMatchNotification_DoesNotShowNotification()
         {
             // Arrange
-            StubNotification("{\"Success\":true,\"Notifications\":[{\"NotificationId\":5,\"UserId\":1,\"Type\":\"MATCH\",\"Title\":\"Novi mathc\",\"Content\":\"Imate novi match\",\"CreatedAt\":\"2026-01-01T10:00:00\",\"IsRead\":true}]}");
+            StubNotification("{\"Success\":true,\"Notifications\":[{\"NotificationId\":5,\"UserId\":1,\"Type\":\"MATCH\",\"Title\":\"Novi match\",\"Content\":\"Imate novi match\",\"CreatedAt\":\"2026-01-01T10:00:00\",\"IsRead\":true}]}");
+
+            var presenter = A.Fake<INotificationPresenter>();
+            var service = CreateDefaultNotificationService(presenter);
+
+            // Act
+            await service.CheckAndShowNotificationAsync(1);
+
+            // Assert
+            A.CallTo(() => presenter.Show(A<Notification>._, A<Action>._)).MustNotHaveHappened();
+        }
+
+        [Fact]
+        public async Task CheckAndShowNotificationAsync_GiveUnReadNonMatchNotification_DoesNotShowNotification()
+        {
+            // Arrange
+            StubNotification("{\"Success\":true,\"Notifications\":[{\"NotificationId\":7,\"UserId\":1,\"Type\":\"INFO\",\"Title\":\"Obavijest\",\"Content\":\"Imate novi match\",\"CreatedAt\":\"2026-01-01T10:00:00\",\"IsRead\":false}]}");
 
             var presenter = A.Fake<INotificationPresenter>();
             var service = CreateDefaultNotificationService(presenter);
