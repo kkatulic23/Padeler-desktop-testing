@@ -10,6 +10,16 @@ namespace BLLUnitTests
 {
     public class CommentsServiceTests
     {
+        [Fact]
+        public void Constructor_ShouldCreateCommentsService()
+        {
+            // Act
+            var service = new CommentsService();
+
+            // Assert
+            Assert.NotNull(service);
+        }
+
         [Theory]
         [InlineData(0, 2)]
         [InlineData(1, 0)]
