@@ -90,6 +90,23 @@ namespace IntegrationTests
             Assert.Equal(2, result[0].UserId);
         }
 
+        [Fact]
+        public async Task GetUserImageCardAsync_GivenExistingImage_ReturnsImage()
+        {
+            // Arrange
+            StubUserImage(2, "{\"success\":true,\"image_base64\":\"abc\",\"mime_type\":\"image/png\"}");
+
+            var service = CreateDefaultUserService();
+
+            // Act
+            var result = await service.GetUserImageCardAsync(2);
+
+            // Assert
+            Assert.True(result.Success);
+            Assert.Equal("abc", result.ImageBase64);
+            Assert.Equal("image/png", result.MimeType);
+        }
+
         private UserService CreateDefaultUserService()
         {
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
