@@ -9,7 +9,7 @@ namespace BLL
 {
     public class RecentlyViewedService
     {
-        private readonly List<int> _recentlyViewedUserId = new List<int>();
+        private static readonly List<int> _recentlyViewedUserId = new List<int>();
 
         public void AddSwipedUser(int userId)
         {
