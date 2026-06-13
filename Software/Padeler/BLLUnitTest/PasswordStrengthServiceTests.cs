@@ -35,5 +35,31 @@ namespace BLLUnitTests
             // Assert
             Assert.Equal("Very weak", result);
         }
+
+        [Fact]
+        public void CalculateScore_GivenLowercasePasswordWithValidLength_ReturnsTwo()
+        {
+            // Arrange
+            var service = new PasswordStrengthService();
+
+            // Act
+            var result = service.CalculateScore("abcdefgh");
+
+            // Assert
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public void GetStrengthLabel_GivenLowercasePasswordWithValidLength_ReturnsWeak()
+        {
+            // Arrange
+            var service = new PasswordStrengthService();
+
+            // Act
+            var result = service.GetStrengthLabel("abcdefgh");
+
+            // Assert
+            Assert.Equal("Weak", result);
+        }
     }
 }

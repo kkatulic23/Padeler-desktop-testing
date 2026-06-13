@@ -14,7 +14,20 @@ namespace BLL
             {
                 return 0;
             }
-            return 0;
+
+            int score = 0;
+
+            if (HasMinimumLength(password))
+            {
+                score++;
+            }
+
+            if (HasLowercaseLetter(password))
+            {
+                score++;
+            }
+
+            return score;
         }
 
         public string GetStrengthLabel(string password)
@@ -25,7 +38,31 @@ namespace BLL
             {
                 return "Very weak";
             }
+
+            if (score == 2)
+            {
+                return "Weak";
+            }
+
             return "Very weak";
+        }
+
+        private bool HasMinimumLength(string password)
+        {
+            return password.Length >= 8;
+        }
+
+        private bool HasLowercaseLetter(string password)
+        {
+            foreach (char character in password)
+            {
+                if (char.IsLower(character))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
