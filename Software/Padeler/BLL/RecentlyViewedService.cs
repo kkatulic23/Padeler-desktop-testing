@@ -40,5 +40,10 @@ namespace BLL
         {
             return _recentlyViewedUserId.Contains(userId);
         }
+
+        public void Clear()
+        {
+            _recentlyViewedUserId.Clear();
+        }
     }
 }

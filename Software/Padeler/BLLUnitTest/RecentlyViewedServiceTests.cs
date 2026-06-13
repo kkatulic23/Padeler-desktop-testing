@@ -11,6 +11,12 @@ namespace BLLUnitTests
 {
     public class RecentlyViewedServiceTests
     {
+        public RecentlyViewedServiceTests()
+        {
+            var service = new RecentlyViewedService();
+            service.Clear();
+        }
+
         [Fact]
         public void FilterUsers_GivenNullUsers_ReturnsEmptyList()
         {
