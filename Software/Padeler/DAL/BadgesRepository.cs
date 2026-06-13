@@ -9,8 +9,14 @@ namespace DAL
 {
     public class BadgesRepository : IBadgesRepository // Kristian Katulić
     {
-        private readonly ApiClient _api = new ApiClient();
-
+        private readonly ApiClient _api;
+        public BadgesRepository() : this(new ApiClient())
+        {
+        }
+        public BadgesRepository(ApiClient api)
+        {
+            _api = api;
+        }
         public async Task<AddSwipeResponse> AddSwipeAsync(int userId)
            => await _api.PostAsync<AddSwipeResponse>("api/badges/add_swipe.php", new { user_id = userId });
 

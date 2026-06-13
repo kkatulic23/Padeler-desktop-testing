@@ -7,7 +7,14 @@ namespace DAL
 {
     public sealed class CommentsRepository : ICommentsRepository
     {
-        private readonly ApiClient _api = new ApiClient();
+        private readonly ApiClient _api;
+        public CommentsRepository() : this(new ApiClient())
+        {
+        }
+        public CommentsRepository(ApiClient api)
+        {
+            _api = api;
+        }
 
         /// <summary>
         /// Dodaje ocjenu (+ opcionalni komentar).
