@@ -10,6 +10,7 @@ namespace BLL
     public sealed class CommentsService // Kristian Katulić
     {
         private readonly ICommentsRepository _repo;
+        private const int MaxCommentLength = 250;
         public CommentsService() : this(new CommentsRepository())
         {
         }
@@ -40,6 +41,9 @@ namespace BLL
                 throw new ArgumentException("Grade has to be between 1 and 5.");
 
             comment = string.IsNullOrWhiteSpace(comment) ? null : comment.Trim();
+
+            if (comment != null && comment.Length > MaxCommentLength)
+                throw new ArgumentException($"Comment can't be longer than {MaxCommentLength} characters.");
 
             var ratedIds = await _repo.GetRatedIdsAsync(commenterId);
             if (ratedIds != null && ratedIds.Contains(commentedId))
