@@ -163,5 +163,24 @@ namespace BLLUnitTests
             await Assert.ThrowsAsync<ArgumentException>(act);
             A.CallTo(() => repository.AddRatingAsync(A<int>._, A<int>._, A<int>._, A<string>._)).MustNotHaveHappened();
         }
+
+        [Fact]
+        public async Task AddRatingAsync_GivenCommentWithExactly250Characters_AddsRating()
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var comment = new string('a', 250);
+
+            A.CallTo(() => repository.GetRatedIdsAsync(1)).Returns(new List<int>());
+
+            var service = new CommentsService(repository);
+
+            // Act
+            await service.AddRatingAsync(1, 2, 5, comment);
+
+            // Assert
+            A.CallTo(() => repository.AddRatingAsync(1, 2, 5, comment)).MustHaveHappenedOnceExactly();
+        }
     }
+
 }
