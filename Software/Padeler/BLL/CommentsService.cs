@@ -41,6 +41,9 @@ namespace BLL
 
             comment = string.IsNullOrWhiteSpace(comment) ? null : comment.Trim();
 
+            if (comment != null && comment.Length > 250)
+                throw new ArgumentException("Comment can't be longer than 250 characters.");
+
             var ratedIds = await _repo.GetRatedIdsAsync(commenterId);
             if (ratedIds != null && ratedIds.Contains(commentedId))
                 throw new InvalidOperationException("You have already graded this user.");

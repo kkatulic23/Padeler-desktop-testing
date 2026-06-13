@@ -145,5 +145,23 @@ namespace BLLUnitTests
             // Assert
             Assert.Equal(20, result);
         }
+
+        // TDD dio - Katulić
+        [Fact]
+        public async Task AddRatingAsync_GivenCommentLongerThan250Characters_ThrowsArgumentException()
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var longComment = new string('a', 251);
+
+            var service = new CommentsService(repository);
+
+            // Act
+            Func<Task> act = async () => await service.AddRatingAsync(1, 2, 5, longComment);
+
+            // Assert
+            await Assert.ThrowsAsync<ArgumentException>(act);
+            A.CallTo(() => repository.AddRatingAsync(A<int>._, A<int>._, A<int>._, A<string>._)).MustNotHaveHappened();
+        }
     }
 }
