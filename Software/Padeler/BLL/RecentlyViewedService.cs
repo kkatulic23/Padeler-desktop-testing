@@ -13,7 +13,10 @@ namespace BLL
 
         public void AddSwipedUser(int userId)
         {
-            _recentlyViewedUserId.Add(userId);
+            if (!_recentlyViewedUserId.Contains(userId))
+            {
+                _recentlyViewedUserId.Add(userId);
+            }
         }
 
         public List<UserCardDto> FilterUsers(List<UserCardDto> users)
