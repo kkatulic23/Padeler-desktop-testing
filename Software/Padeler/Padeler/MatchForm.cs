@@ -258,20 +258,9 @@ namespace Padeler
 
         private void FilterRows(string filter)
         {
-            if (String.IsNullOrWhiteSpace(filter))
-            {
-                _rows = new BindingList<MatchRow>(_allRows);
-                dgvMatches.DataSource = _rows;
-                return;
-            }
+            var filtered = _matchService.FilterMatchesByName(_allRows, filter ?? string.Empty);
 
-            var trimmed = filter.Trim();
-
-            var filtered = _allRows
-                .Where(r => !string.IsNullOrEmpty(r.FullName) && r.FullName.IndexOf(trimmed, StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
-
-            _rows = new BindingList<MatchRow>(filtered);
+            _rows = new BindingList<MatchRow>(filtered ?? new List<MatchRow>());
             dgvMatches.DataSource = _rows;
         }
     }
