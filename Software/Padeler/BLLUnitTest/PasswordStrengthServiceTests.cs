@@ -87,5 +87,31 @@ namespace BLLUnitTests
             // Assert
             Assert.Equal("Okay", result);
         }
+
+        [Fact]
+        public void CalculateScore_GivenPasswordWithNumber_ReturnsFour()
+        {
+            // Arrange
+            var service = new PasswordStrengthService();
+
+            // Act
+            var result = service.CalculateScore("Abcdefgh1");
+
+            // Assert
+            Assert.Equal(4, result);
+        }
+
+        [Fact]
+        public void GetStrengthLabel_GivenPasswordWithNumber_ReturnsGood()
+        {
+            // Arrange
+            var service = new PasswordStrengthService();
+
+            // Act
+            var result = service.GetStrengthLabel("Abcdefgh1");
+
+            // Assert
+            Assert.Equal("Good", result);
+        }
     }
 }

@@ -32,6 +32,11 @@ namespace BLL
                 score++;
             }
 
+            if (HasDigit(password))
+            {
+                score++;
+            }
+
             return score;
         }
 
@@ -52,6 +57,11 @@ namespace BLL
             if (score == 3)
             {
                 return "Okay";
+            }
+
+            if (score == 4)
+            {
+                return "Good";
             }
 
             return "Very weak";
@@ -80,6 +90,19 @@ namespace BLL
             foreach (char character in password)
             {
                 if (char.IsUpper(character))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool HasDigit(string password)
+        {
+            foreach (char character in password)
+            {
+                if (char.IsDigit(character))
                 {
                     return true;
                 }
