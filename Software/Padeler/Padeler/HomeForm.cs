@@ -27,6 +27,7 @@ namespace Padeler
         private readonly BadgeService _badgeService;
         private List<UserCardDto> _cards;
         private int _currentIndex = 0;
+        private readonly RecentlyViewedService _recentlyViewedService;
         public HomeForm()
         {
             InitializeComponent();
@@ -35,6 +36,7 @@ namespace Padeler
             _imageService = new ImageService();
             _badgeService = new BadgeService();
             _notificationService = new NotificationService(null);
+            _recentlyViewedService = new RecentlyViewedService();
         }
 
         private async void HomeForm_Load(object sender, EventArgs e) // Filip Grgac
@@ -101,9 +103,11 @@ namespace Padeler
 
             await _matchService.DislikeAsync(AuthContext.CurrentUserId, card.UserId);
 
+            _recentlyViewedService.AddSwipedUser(card.UserId);
+
             _currentIndex++;
             LoadUser();
-            OnSwipedAsync();
+            await OnSwipedAsync();
         }
 
         private void lblDistance_Click(object sender, EventArgs e)
@@ -171,6 +175,7 @@ namespace Padeler
             var card = _cards[_currentIndex];
 
             bool matched = await _matchService.LikeAsync(AuthContext.CurrentUserId, card.UserId);
+            _recentlyViewedService.AddSwipedUser(card.UserId);
 
             if (matched)
             {
@@ -184,7 +189,7 @@ namespace Padeler
             }
             _currentIndex++;
             LoadUser();
-            OnSwipedAsync();
+            await OnSwipedAsync();
         }
 
         /// <summary>
@@ -279,6 +284,7 @@ namespace Padeler
             string frequency = Properties.Settings.Default.FilterFrequency ?? "";
 
             _cards = await _userService.GetUsersForCardAsync(radiusKm, gender, level, position, frequency);
+            _cards = _recentlyViewedService.FilterUsers(_cards);
             _currentIndex = 0;
 
             if (_cards == null || _cards.Count == 0)
