@@ -12,7 +12,7 @@ namespace BLLUnitTests
     public class RecentlyViewedServiceTests
     {
         [Fact]
-        public async Task FilterUsers_GivenNullUsers_ReturnsEmptyList()
+        public void FilterUsers_GivenNullUsers_ReturnsEmptyList()
         {
             // Arrange
             var service = new RecentlyViewedService();
@@ -25,7 +25,7 @@ namespace BLLUnitTests
         }
 
         [Fact]
-        public async Task FilterUsers_GivenEmptyUsers_ReturnsEmptyList()
+        public void FilterUsers_GivenEmptyUsers_ReturnsEmptyList()
         {
             // Arrange
             var service = new RecentlyViewedService();
@@ -38,7 +38,7 @@ namespace BLLUnitTests
         }
 
         [Fact]
-        public async Task FilterUsers_GivenUsersAndNoRecentlyViewed_ReturnsAllUsers()
+        public void FilterUsers_GivenUsersAndNoRecentlyViewed_ReturnsAllUsers()
         {
             // Arrange
             var service = new RecentlyViewedService();
@@ -54,6 +54,27 @@ namespace BLLUnitTests
 
             // Assert
             Assert.Equal(2, result.Count);
+        }
+
+        [Fact]
+        public void FilterUsers_GivenOneRecentlyViewedUser_RemovesThatUser()
+        {
+            // Arrange
+            var service = new RecentlyViewedService();
+            service.AddSwipedUser(1);
+
+            var users = new List<UserCardDto>
+            {
+                CreateUser(1),
+                CreateUser(2)
+            };
+
+            // Act
+            var result = service.FilterUsers(users);
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal(2, result[0].UserId);
         }
 
         private UserCardDto CreateUser(int userId)

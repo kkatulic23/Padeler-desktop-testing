@@ -9,6 +9,13 @@ namespace BLL
 {
     public class RecentlyViewedService
     {
+        private readonly List<int> _recentlyViewedUserId = new List<int>();
+
+        public void AddSwipedUser(int userId)
+        {
+            _recentlyViewedUserId.Add(userId);
+        }
+
         public List<UserCardDto> FilterUsers(List<UserCardDto> users)
         {
             if (users == null)
@@ -16,7 +23,7 @@ namespace BLL
                 return new List<UserCardDto>();
             }
 
-            return users;
+            return users.Where(user => !_recentlyViewedUserId.Contains(user.UserId)).ToList();
         }
     }
 }
