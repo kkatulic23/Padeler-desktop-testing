@@ -1,4 +1,5 @@
 ﻿using BLL;
+using EL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,19 @@ namespace BLLUnitTests
 
             // Act
             var result = service.FIlterUsers(null);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async Task FilterUsers_GivenEmptyUsers_ReturnsEmptyList()
+        {
+            // Arrange
+            var service = new RecentlyViewedService();
+
+            // Act
+            var result = service.FIlterUsers(new List<UserCardDto>());
 
             // Assert
             Assert.Empty(result);
