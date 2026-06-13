@@ -77,6 +77,29 @@ namespace BLLUnitTests
             Assert.Equal(2, result[0].UserId);
         }
 
+        [Fact]
+        public void FilterUsers_GivenAllUsersRecentlySwiped_ReturnsOriginalList()
+        {
+            // Arrange
+            var service = new RecentlyViewedService();
+            service.AddSwipedUser(1);
+            service.AddSwipedUser(2);
+
+            var users = new List<UserCardDto>
+            {
+                CreateUser(1),
+                CreateUser(2)
+            };
+
+            // Act
+            var result = service.FilterUsers(users);
+
+            // Assert
+            Assert.Equal(2, result.Count);
+            Assert.Equal(1, result[0].UserId);
+            Assert.Equal(2, result[1].UserId);
+        }
+
         private UserCardDto CreateUser(int userId)
         {
             return new UserCardDto

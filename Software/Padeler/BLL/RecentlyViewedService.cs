@@ -23,7 +23,19 @@ namespace BLL
                 return new List<UserCardDto>();
             }
 
-            return users.Where(user => !_recentlyViewedUserId.Contains(user.UserId)).ToList();
+            var filteredUsers = users.Where(user => !IsRecentlyViewed(user.UserId)).ToList();
+
+            if(filteredUsers.Count == 0)
+            {
+                return users;
+            }
+
+            return filteredUsers;
+        }
+
+        private bool IsRecentlyViewed(int userId)
+        {
+            return _recentlyViewedUserId.Contains(userId);
         }
     }
 }
