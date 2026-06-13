@@ -11,14 +11,21 @@ namespace BLL
     public class UserService
     {
         private readonly IUsersRepository _usersRepository;
+        private readonly IAuthContext _authContext;
 
-        public UserService() : this(new UsersRepository())
+        public UserService() : this(new UsersRepository(), new AuthContextAdapter())
         {
         }
 
         public UserService(IUsersRepository usersRepository)
+            : this(usersRepository, new AuthContextAdapter())
+        {
+        }
+
+        public UserService(IUsersRepository usersRepository, IAuthContext authContext)
         {
             _usersRepository = usersRepository;
+            _authContext = authContext;
         }
 
         /// <summary>
@@ -34,7 +41,7 @@ namespace BLL
             string frequency
         ) 
         {
-            if (!AuthContext.IsLoggedIn)
+            if (!_authContext.IsLoggedIn)
             {
                 throw new Exception("The user is not logged in!");
             }
@@ -42,7 +49,7 @@ namespace BLL
             if (radiusKm < 1) radiusKm = 1;
             if (radiusKm > 50) radiusKm = 50;
 
-            int loggedId = AuthContext.CurrentUserId;
+            int loggedId = _authContext.CurrentUserId;
 
             var loggedUser = await _usersRepository.GetUserAsync(loggedId);
             if (loggedUser.latitude == null || loggedUser.longitude == null)

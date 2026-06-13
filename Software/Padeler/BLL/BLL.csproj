@@ -54,10 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthContextAdapter.cs" />
     <Compile Include="BadgeService.cs" />
     <Compile Include="CommentsService.cs" />
     <Compile Include="EditProfile.cs" />
     <Compile Include="GeoCoordinateLocationProvider.cs" />
+    <Compile Include="IAuthContext.cs" />
     <Compile Include="ILocationProvider.cs" />
     <Compile Include="ImageConverter.cs" />
     <Compile Include="AuthContext.cs" />

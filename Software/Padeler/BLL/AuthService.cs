@@ -18,19 +18,27 @@ namespace BLL
         private const int MaxImageBytes = 600000;
         private const string ProfileMimeType = "image/jpeg";
 
-        public AuthService() : this(new AuthRepository(new ApiClient()))
+        private readonly IAuthContext _authContext;
+
+        public AuthService() : this(new AuthRepository(new ApiClient()), new AuthContextAdapter())
         {
         }
 
         public AuthService(IAuthRepository repo)
+            : this(repo, new AuthContextAdapter())
+        {
+        }
+
+        public AuthService(IAuthRepository repo, IAuthContext authContext)
         {
             _repo = repo;
+            _authContext = authContext;
         }
 
         public async Task<int> LoginAsync(string username, string password) // Karlo Kršak
         {
             int userId = await _repo.LoginAsync(username, password);
-            AuthContext.SetUser(userId, username);
+            _authContext.SetUser(userId, username);
             return userId;
         }
         public async Task<int> RegisterAsync( // Karlo Kršak
@@ -130,7 +138,7 @@ namespace BLL
         }
         public void Logout() // Karlo Kršak
         {
-            AuthContext.Clear();
+            _authContext.Clear();
         }
 
     }

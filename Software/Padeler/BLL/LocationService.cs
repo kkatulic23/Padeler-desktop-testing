@@ -8,21 +8,28 @@ namespace BLL
     {
         private readonly IUsersRepository _usersRepository;
         private readonly ILocationProvider _locationProvider;
+        private readonly IAuthContext _authContext;
 
         public LocationService()
-            : this(new UsersRepository(), new GeoCoordinateLocationProvider())
+            : this(new UsersRepository(), new GeoCoordinateLocationProvider(), new AuthContextAdapter())
         {
         }
 
         public LocationService(IUsersRepository usersRepository)
-            : this(usersRepository, new GeoCoordinateLocationProvider())
+            : this(usersRepository, new GeoCoordinateLocationProvider(), new AuthContextAdapter())
         {
         }
 
         public LocationService(IUsersRepository usersRepository, ILocationProvider locationProvider)
+            : this(usersRepository, locationProvider, new AuthContextAdapter())
+        {
+        }
+
+        public LocationService(IUsersRepository usersRepository, ILocationProvider locationProvider, IAuthContext authContext)
         {
             _usersRepository = usersRepository;
             _locationProvider = locationProvider;
+            _authContext = authContext;
         }
 
         /// <summary>
@@ -31,7 +38,7 @@ namespace BLL
         /// </summary>
         public async Task<bool> TryUpdateCurrentUserLocationAsync() // Karlo Kršak
         {
-            if (!AuthContext.IsLoggedIn)
+            if (!_authContext.IsLoggedIn)
             {
                 return false;
             }
@@ -48,7 +55,7 @@ namespace BLL
 
             try
             {
-                await _usersRepository.UpdateLocationAsync(AuthContext.CurrentUserId, lat, lng);
+                await _usersRepository.UpdateLocationAsync(_authContext.CurrentUserId, lat, lng);
                 return true;
             }
             catch

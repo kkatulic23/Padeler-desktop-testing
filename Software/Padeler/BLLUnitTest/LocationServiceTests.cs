@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BLL;
 using DAL;
@@ -12,40 +9,51 @@ namespace BLLUnitTests
 {
     public class LocationServiceTests
     {
-        public LocationServiceTests()
+        private IAuthContext CreateAuthContext(bool isLoggedIn, int userId = 0)
         {
-            AuthContext.Clear();
+            var authContext = A.Fake<IAuthContext>();
+
+            A.CallTo(() => authContext.IsLoggedIn).Returns(isLoggedIn);
+            A.CallTo(() => authContext.CurrentUserId).Returns(userId);
+
+            return authContext;
         }
 
         [Fact]
-        public async Task TryUpdateCurrentUserLocationAsync_GivenDefaultConstructorAndUserIsNotLoggedIn_ReturnsFalse()
+        public void Constructor_GivenDefaultConstructor_CreatesService()
         {
-            // Arrange
-            AuthContext.Clear();
+            // Arrange & Act
             var service = new LocationService();
 
-            // Act
-            var result = await service.TryUpdateCurrentUserLocationAsync();
-
             // Assert
-            Assert.False(result);
+            Assert.NotNull(service);
         }
 
         [Fact]
-        public async Task TryUpdateCurrentUserLocationAsync_GivenRepositoryConstructorAndUserIsNotLoggedIn_ReturnsFalse()
+        public void Constructor_GivenRepositoryConstructor_CreatesService()
         {
             // Arrange
-            AuthContext.Clear();
             var userRepository = A.Fake<IUsersRepository>();
-            var service = new LocationService(userRepository);
 
             // Act
-            var result = await service.TryUpdateCurrentUserLocationAsync();
+            var service = new LocationService(userRepository);
 
             // Assert
-            Assert.False(result);
+            Assert.NotNull(service);
+        }
 
-            A.CallTo(() => userRepository.UpdateLocationAsync(A<int>._, A<double>._, A<double>._)).MustNotHaveHappened();
+        [Fact]
+        public void Constructor_GivenRepositoryAndLocationProviderConstructor_CreatesService()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUsersRepository>();
+            var locationProvider = A.Fake<ILocationProvider>();
+
+            // Act
+            var service = new LocationService(userRepository, locationProvider);
+
+            // Assert
+            Assert.NotNull(service);
         }
 
         [Fact]
@@ -54,7 +62,9 @@ namespace BLLUnitTests
             // Arrange
             var userRepository = A.Fake<IUsersRepository>();
             var locationProvider = A.Fake<ILocationProvider>();
-            var service = new LocationService(userRepository, locationProvider);
+            var authContext = CreateAuthContext(false);
+
+            var service = new LocationService(userRepository, locationProvider, authContext);
 
             // Act
             var result = await service.TryUpdateCurrentUserLocationAsync();
@@ -69,14 +79,14 @@ namespace BLLUnitTests
         public async Task TryUpdateCurrentUserLocationAsync_GivenLocationIsNotAvailable_ReturnsFalse()
         {
             // Arrange
-            AuthContext.SetUser(1, "kkrsak23");
             var userRepository = A.Fake<IUsersRepository>();
             var locationProvider = A.Fake<ILocationProvider>();
+            var authContext = CreateAuthContext(true, 1);
 
             A.CallTo(() => locationProvider.GetCurrentLocationAsync())
                 .Returns(Task.FromResult<(double lat, double lng)?>(null));
 
-            var service = new LocationService(userRepository, locationProvider);
+            var service = new LocationService(userRepository, locationProvider, authContext);
 
             // Act
             var result = await service.TryUpdateCurrentUserLocationAsync();
@@ -90,10 +100,9 @@ namespace BLLUnitTests
         public async Task TryUpdateCurrentUserLocationAsync_GivenValidLocation_UpdatesLocationAndReturnsTrue()
         {
             // Arrange
-            AuthContext.SetUser(1, "kkrsak23");
-
             var userRepository = A.Fake<IUsersRepository>();
             var locationProvider = A.Fake<ILocationProvider>();
+            var authContext = CreateAuthContext(true, 1);
 
             A.CallTo(() => locationProvider.GetCurrentLocationAsync())
                 .Returns(Task.FromResult<(double lat, double lng)?>((46.123456789, 16.987654321)));
@@ -101,24 +110,24 @@ namespace BLLUnitTests
             A.CallTo(() => userRepository.UpdateLocationAsync(1, 46.1234568, 16.9876543))
                 .Returns(Task.FromResult(true));
 
-            var service = new LocationService(userRepository, locationProvider);
+            var service = new LocationService(userRepository, locationProvider, authContext);
 
             // Act
             var result = await service.TryUpdateCurrentUserLocationAsync();
 
             // Assert
             Assert.True(result);
-            A.CallTo(() => userRepository.UpdateLocationAsync(1, 46.1234568, 16.9876543)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => userRepository.UpdateLocationAsync(1, 46.1234568, 16.9876543))
+                .MustHaveHappenedOnceExactly();
         }
 
         [Fact]
         public async Task TryUpdateCurrentUserLocationAsync_GivenRepositoryThrowsException_ReturnsFalse()
         {
             // Arrange
-            AuthContext.SetUser(1, "kkrsak23");
-
             var userRepository = A.Fake<IUsersRepository>();
             var locationProvider = A.Fake<ILocationProvider>();
+            var authContext = CreateAuthContext(true, 1);
 
             A.CallTo(() => locationProvider.GetCurrentLocationAsync())
                 .Returns(Task.FromResult<(double lat, double lng)?>((46.1234567, 16.9876543)));
@@ -126,7 +135,7 @@ namespace BLLUnitTests
             A.CallTo(() => userRepository.UpdateLocationAsync(A<int>._, A<double>._, A<double>._))
                 .Throws(new Exception("API error"));
 
-            var service = new LocationService(userRepository, locationProvider);
+            var service = new LocationService(userRepository, locationProvider, authContext);
 
             // Act
             var result = await service.TryUpdateCurrentUserLocationAsync();

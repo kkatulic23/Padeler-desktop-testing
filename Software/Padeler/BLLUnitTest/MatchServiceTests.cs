@@ -4,8 +4,6 @@ using EL;
 using FakeItEasy;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -13,6 +11,30 @@ namespace BLLUnitTests
 {
     public class MatchServiceTests
     {
+        [Fact]
+        public void Constructor_GivenDefaultConstructor_CreatesService()
+        {
+            // Arrange & Act
+            var service = new MatchService();
+
+            // Assert
+            Assert.NotNull(service);
+        }
+
+        [Fact]
+        public void Constructor_GivenRepositoriesConstructor_CreatesService()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+
+            // Act
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Assert
+            Assert.NotNull(service);
+        }
+
         [Fact]
         public async Task LikeAsync_GivenMatchedSwipe_ReturnsFalse()
         {
@@ -103,7 +125,6 @@ namespace BLLUnitTests
             // Arrange
             var swipeRepository = A.Fake<ISwipeRepository>();
             var matchRepository = A.Fake<IMatchRepository>();
-
 
             A.CallTo(() => swipeRepository.SwipeAsync(1, 2, "DISLIKE")).Returns(Task.FromResult(new SwipeResponse
             {

@@ -11,16 +11,43 @@ using Xunit;
 
 namespace BLLUnitTests
 {
-    public class AuthServiceTests : IDisposable
+    public class AuthServiceTests
     {
-        public AuthServiceTests()
+        [Fact]
+        public void Constructor_GivenDefaultConstructor_CreatesService()
         {
-            AuthContext.Clear();
+            // Arrange & Act
+            var service = new AuthService();
+
+            // Assert
+            Assert.NotNull(service);
         }
 
-        public void Dispose()
+        [Fact]
+        public void Constructor_GivenRepositoryConstructor_CreatesService()
         {
-            AuthContext.Clear();
+            // Arrange
+            var authRepository = A.Fake<IAuthRepository>();
+
+            // Act
+            var service = new AuthService(authRepository);
+
+            // Assert
+            Assert.NotNull(service);
+        }
+
+        [Fact]
+        public void Constructor_GivenRepositoryAndAuthContextConstructor_CreatesService()
+        {
+            // Arrange
+            var authRepository = A.Fake<IAuthRepository>();
+            var authContext = A.Fake<IAuthContext>();
+
+            // Act
+            var service = new AuthService(authRepository, authContext);
+
+            // Assert
+            Assert.NotNull(service);
         }
 
         [Fact]
@@ -28,7 +55,8 @@ namespace BLLUnitTests
         {
             // Arrange
             var authRepository = A.Fake<IAuthRepository>();
-            var service = new AuthService(authRepository);
+            var authContext = A.Fake<IAuthContext>();
+            var service = new AuthService(authRepository, authContext);
 
             A.CallTo(() => authRepository.LoginAsync("karlo", "lozinka123")).Returns(5);
 
@@ -37,9 +65,7 @@ namespace BLLUnitTests
 
             // Assert
             Assert.Equal(5, result);
-            Assert.True(AuthContext.IsLoggedIn);
-            Assert.Equal(5, AuthContext.CurrentUserId);
-            Assert.Equal("karlo", AuthContext.CurrentUsername);
+            A.CallTo(() => authContext.SetUser(5, "karlo")).MustHaveHappenedOnceExactly();
         }
 
         [Fact]
@@ -85,7 +111,8 @@ namespace BLLUnitTests
             var authRepository = A.Fake<IAuthRepository>();
             var service = new AuthService(authRepository);
 
-            A.CallTo(() => authRepository.LoginAsync("karlo", "krivaLozinka")).ThrowsAsync(new Exception("Login failed."));
+            A.CallTo(() => authRepository.LoginAsync("karlo", "krivaLozinka"))
+                .ThrowsAsync(new Exception("Login failed."));
 
             // Act
             Func<Task> act = async () => await service.LoginAsync("karlo", "krivaLozinka");
@@ -99,7 +126,8 @@ namespace BLLUnitTests
         {
             // Arrange
             var authRepository = A.Fake<IAuthRepository>();
-            var service = new AuthService(authRepository);
+            var authContext = A.Fake<IAuthContext>();
+            var service = new AuthService(authRepository, authContext);
 
             A.CallTo(() => authRepository.LoginAsync("karlo", "lozinka123"))
                 .Returns(5);
@@ -460,17 +488,14 @@ namespace BLLUnitTests
         {
             // Arrange
             var authRepository = A.Fake<IAuthRepository>();
-            var service = new AuthService(authRepository);
-
-            AuthContext.SetUser(5, "karlo");
+            var authContext = A.Fake<IAuthContext>();
+            var service = new AuthService(authRepository, authContext);
 
             // Act
             service.Logout();
 
             // Assert
-            Assert.False(AuthContext.IsLoggedIn);
-            Assert.Equal(0, AuthContext.CurrentUserId);
-            Assert.Equal("", AuthContext.CurrentUsername);
+            A.CallTo(() => authContext.Clear()).MustHaveHappenedOnceExactly();
         }
 
         private static RegisterData CreateValidRegisterData()
