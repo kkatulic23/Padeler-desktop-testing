@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblMatchTitle = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.dgvMatches = new System.Windows.Forms.DataGridView();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -48,6 +49,16 @@
             this.lblMatchTitle.Size = new System.Drawing.Size(173, 58);
             this.lblMatchTitle.TabIndex = 0;
             this.lblMatchTitle.Text = "Match List";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearch.Location = new System.Drawing.Point(20, 70);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(798, 22);
+            this.txtSearch.TabIndex = 2;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // dgvMatches
             // 
@@ -78,12 +89,12 @@
             this.dgvMatches.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvMatches.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvMatches.EnableHeadersVisualStyles = false;
-            this.dgvMatches.Location = new System.Drawing.Point(20, 70);
+            this.dgvMatches.Location = new System.Drawing.Point(20, 100);
             this.dgvMatches.Name = "dgvMatches";
             this.dgvMatches.RowHeadersVisible = false;
             this.dgvMatches.RowHeadersWidth = 51;
             this.dgvMatches.RowTemplate.Height = 24;
-            this.dgvMatches.Size = new System.Drawing.Size(798, 393);
+            this.dgvMatches.Size = new System.Drawing.Size(798, 363);
             this.dgvMatches.TabIndex = 1;
             this.dgvMatches.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMatches_CellContentClick);
             // 
@@ -119,6 +130,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.dgvMatches);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.lblMatchTitle);
             this.Name = "MatchForm";
             this.Text = "MatchForm";
@@ -135,5 +147,6 @@
         private System.Windows.Forms.DataGridView dgvMatches;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtSearch;
     }
 }

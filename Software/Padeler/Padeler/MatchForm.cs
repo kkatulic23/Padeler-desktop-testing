@@ -21,6 +21,7 @@ namespace Padeler
         private readonly MatchService _matchService;
 
         private BindingList<MatchRow> _rows = new BindingList<MatchRow>();
+        private List<MatchRow> _allRows = new List<MatchRow>();
 
         private const string ColFullName = "colFullName";
         private const string ColNickname = "colNickname";
@@ -113,7 +114,8 @@ namespace Padeler
             {
                 var list = await _matchService.GetMatchedEntries(AuthContext.CurrentUserId);
 
-                _rows = new BindingList<MatchRow>(list);
+                _allRows = list ?? new List<MatchRow>();
+                _rows = new BindingList<MatchRow>(_allRows);
                 dgvMatches.DataSource = _rows;
             }
             catch(Exception ex)
@@ -241,11 +243,36 @@ namespace Padeler
                 await _matchService.DeleteEntry(entry);
 
                 _rows.Remove(row);
+                _allRows.Remove(row);
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Greška prilikom brisanja: " + ex.Message);
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            FilterRows(txtSearch.Text);
+        }
+
+        private void FilterRows(string filter)
+        {
+            if (String.IsNullOrWhiteSpace(filter))
+            {
+                _rows = new BindingList<MatchRow>(_allRows);
+                dgvMatches.DataSource = _rows;
+                return;
+            }
+
+            var trimmed = filter.Trim();
+
+            var filtered = _allRows
+                .Where(r => !string.IsNullOrEmpty(r.FullName) && r.FullName.IndexOf(trimmed, StringComparison.OrdinalIgnoreCase) >= 0)
+                .ToList();
+
+            _rows = new BindingList<MatchRow>(filtered);
+            dgvMatches.DataSource = _rows;
         }
     }
 }
