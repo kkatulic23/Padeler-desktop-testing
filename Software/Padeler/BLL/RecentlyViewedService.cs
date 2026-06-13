@@ -9,9 +9,14 @@ namespace BLL
 {
     public class RecentlyViewedService
     {
-        public List<UserCardDto> FIlterUsers(List<UserCardDto> users)
+        public List<UserCardDto> FilterUsers(List<UserCardDto> users)
         {
-            return new List<UserCardDto>();
+            if (users == null)
+            {
+                return new List<UserCardDto>();
+            }
+
+            return users;
         }
     }
 }
