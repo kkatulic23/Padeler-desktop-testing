@@ -61,5 +61,31 @@ namespace BLLUnitTests
             // Assert
             Assert.Equal("Weak", result);
         }
+
+        [Fact]
+        public void CalculateScore_GivenPasswordWithUppercase_ReturnsThree()
+        {
+            // Arrange
+            var service = new PasswordStrengthService();
+
+            // Act
+            var result = service.CalculateScore("Abcdefgh");
+
+            // Assert
+            Assert.Equal(3, result);
+        }
+
+        [Fact]
+        public void GetStrengthLabel_GivenPasswordWithUppercase_ReturnsOkay()
+        {
+            // Arrange
+            var service = new PasswordStrengthService();
+
+            // Act
+            var result = service.GetStrengthLabel("Abcdefgh");
+
+            // Assert
+            Assert.Equal("Okay", result);
+        }
     }
 }

@@ -27,6 +27,11 @@ namespace BLL
                 score++;
             }
 
+            if (HasUppercaseLetter(password))
+            {
+                score++;
+            }
+
             return score;
         }
 
@@ -44,6 +49,11 @@ namespace BLL
                 return "Weak";
             }
 
+            if (score == 3)
+            {
+                return "Okay";
+            }
+
             return "Very weak";
         }
 
@@ -57,6 +67,19 @@ namespace BLL
             foreach (char character in password)
             {
                 if (char.IsLower(character))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool HasUppercaseLetter(string password)
+        {
+            foreach (char character in password)
+            {
+                if (char.IsUpper(character))
                 {
                     return true;
                 }
