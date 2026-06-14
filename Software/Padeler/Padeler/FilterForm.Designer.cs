@@ -86,6 +86,17 @@
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
+            // btnReset
+            // 
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnReset.Location = new System.Drawing.Point(340, 253);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 5;
+            this.btnReset.Text = "Reset filters";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // lblRadius
             // 
             this.lblRadius.AutoSize = true;
@@ -182,6 +193,7 @@
             this.Controls.Add(this.cboGender);
             this.Controls.Add(this.lblRadius);
             this.Controls.Add(this.btnApply);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.lblRadiusText);
             this.Controls.Add(this.trkRadius);
             this.Controls.Add(this.lblFilter);
@@ -200,6 +212,7 @@
         private System.Windows.Forms.TrackBar trkRadius;
         private System.Windows.Forms.Label lblRadiusText;
         private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Label lblRadius;
         private System.Windows.Forms.ComboBox cboGender;
         private System.Windows.Forms.ComboBox cboLevel;

@@ -47,6 +47,36 @@ namespace Padeler
                 MessageBoxIcon.Information
             );
         }
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            var svc = new PartnerFilterSettingsService();
+            var defaults = svc.GetDefaultSettings();
+
+            // Reset UI
+            if (defaults.RadiusKm >= trkRadius.Minimum && defaults.RadiusKm <= trkRadius.Maximum)
+                trkRadius.Value = defaults.RadiusKm;
+            lblRadius.Text = $"{trkRadius.Value} km";
+
+            cboGender.SelectedIndex = 0;
+            cboLevel.SelectedIndex = 0;
+            cboPosition.SelectedIndex = 0;
+            cboFrequency.SelectedIndex = 0;
+
+            // Save defaults
+            Properties.Settings.Default.RadiusKm = defaults.RadiusKm;
+            Properties.Settings.Default.FilterGender = defaults.FilterGender;
+            Properties.Settings.Default.FilterLevel = defaults.FilterLevel;
+            Properties.Settings.Default.FilterPosition = defaults.FilterPosition;
+            Properties.Settings.Default.FilterFrequency = defaults.FilterFrequency;
+            Properties.Settings.Default.Save();
+
+            MessageBox.Show(
+                "Filters have been reset to defaults.",
+                "Filters reset",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
         private void FIlterForm_Load(object sender, EventArgs e)
         {
             
