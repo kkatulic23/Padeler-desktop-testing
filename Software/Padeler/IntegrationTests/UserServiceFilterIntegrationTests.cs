@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DAL;
+using FakeItEasy;
 using System;
 using System.Threading.Tasks;
 using WireMock.RequestBuilders;
@@ -12,11 +13,16 @@ namespace IntegrationTests
     public class UserServiceFilterIntegrationTests : IDisposable
     {
         private readonly WireMockServer _server;
+        private readonly IAuthContext _authContext;
 
         public UserServiceFilterIntegrationTests()
         {
             _server = WireMockServer.Start();
-            AuthContext.SetUser(1, "karlo");
+            _authContext = A.Fake<IAuthContext>();
+
+            A.CallTo(() => _authContext.IsLoggedIn).Returns(true);
+            A.CallTo(() => _authContext.CurrentUserId).Returns(1);
+            A.CallTo(() => _authContext.CurrentUsername).Returns("karlo");
         }
 
         [Fact]
@@ -158,7 +164,7 @@ namespace IntegrationTests
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
             var repository = new UsersRepository(apiClient);
 
-            return new UserService(repository);
+            return new UserService(repository, _authContext);
         }
 
         private void StubLoggedUserWithLocation()
@@ -239,7 +245,6 @@ namespace IntegrationTests
 
         public void Dispose()
         {
-            AuthContext.Clear();
             _server.Stop();
             _server.Dispose();
         }

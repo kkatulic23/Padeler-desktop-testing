@@ -1,9 +1,7 @@
 ﻿using BLL;
 using DAL;
+using FakeItEasy;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -15,18 +13,23 @@ namespace IntegrationTests
     public class UserServiceIntegrationTests : IDisposable
     {
         private readonly WireMockServer _server;
+        private readonly IAuthContext _authContext;
 
         public UserServiceIntegrationTests()
         {
             _server = WireMockServer.Start();
-            AuthContext.SetUser(1, "filip");
+            _authContext = A.Fake<IAuthContext>();
+
+            A.CallTo(() => _authContext.IsLoggedIn).Returns(true);
+            A.CallTo(() => _authContext.CurrentUserId).Returns(1);
+            A.CallTo(() => _authContext.CurrentUsername).Returns("filip");
         }
 
         [Fact]
         public async Task GetUsersForCardAsync_GivenUserIsNotLoggedIn_ThrowsException()
         {
             // Arrange
-            AuthContext.Clear();
+            A.CallTo(() => _authContext.IsLoggedIn).Returns(false);
             var service = CreateDefaultUserService();
 
             // Act
@@ -112,7 +115,7 @@ namespace IntegrationTests
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
             var repository = new UsersRepository(apiClient);
 
-            return new UserService(repository);
+            return new UserService(repository, _authContext);
         }
 
         private void StubLoggedUserWithoutLocation()
@@ -139,7 +142,6 @@ namespace IntegrationTests
 
         public void Dispose()
         {
-            AuthContext.Clear();
             _server.Stop();
             _server.Dispose();
         }

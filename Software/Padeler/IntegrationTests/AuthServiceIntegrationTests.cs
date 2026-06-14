@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BLL;
 using DAL;
+using FakeItEasy;
+using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 using Xunit;
-using WireMock.RequestBuilders;
-using WireMock.ResponseBuilders;
 
 namespace IntegrationTests
 {
     public class AuthServiceIntegrationTests : IDisposable
     {
         private readonly WireMockServer _server;
+        private readonly IAuthContext _authContext;
 
         public AuthServiceIntegrationTests()
         {
-            AuthContext.Clear();
             _server = WireMockServer.Start();
+            _authContext = A.Fake<IAuthContext>();
         }
 
         [Fact]
@@ -35,9 +33,9 @@ namespace IntegrationTests
 
             // Assert
             Assert.Equal(25, result);
-            Assert.True(AuthContext.IsLoggedIn);
-            Assert.Equal(25, AuthContext.CurrentUserId);
-            Assert.Equal("kkrsak23", AuthContext.CurrentUsername);
+
+            A.CallTo(() => _authContext.SetUser(25, "kkrsak23"))
+                .MustHaveHappenedOnceExactly();
         }
 
         [Fact]
@@ -52,9 +50,9 @@ namespace IntegrationTests
 
             // Assert
             Assert.Equal("Invalid credentials", exception.Message);
-            Assert.False(AuthContext.IsLoggedIn);
-            Assert.Equal(0, AuthContext.CurrentUserId);
-            Assert.Equal("", AuthContext.CurrentUsername);
+
+            A.CallTo(() => _authContext.SetUser(A<int>._, A<string>._))
+                .MustNotHaveHappened();
         }
 
         [Fact]
@@ -201,7 +199,7 @@ namespace IntegrationTests
             var apiClient = new ApiClient(new Uri(_server.Url + "/"));
             var authRepository = new AuthRepository(apiClient);
 
-            return new AuthService(authRepository);
+            return new AuthService(authRepository, _authContext);
         }
 
         private Task<int> RegisterDefaultUserAsync(
@@ -246,7 +244,6 @@ namespace IntegrationTests
 
         public void Dispose()
         {
-            AuthContext.Clear();
             _server.Stop();
             _server.Dispose();
         }
