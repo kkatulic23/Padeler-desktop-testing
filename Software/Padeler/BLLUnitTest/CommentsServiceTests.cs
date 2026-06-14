@@ -20,6 +20,105 @@ namespace BLLUnitTests
             Assert.NotNull(service);
         }
 
+        // New tests for comment length helper methods
+        [Theory]
+        [InlineData(null, 250)]
+        [InlineData("", 250)]
+        [InlineData("   ", 250)]
+        [InlineData("Hello", 245)]
+        public void GetRemainingCommentCharacters_VariousInputs_ReturnsExpected(string comment, int expected)
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var service = new CommentsService(repository);
+
+            // Act
+            var remaining = service.GetRemainingCommentCharacters(comment);
+
+            // Assert
+            Assert.Equal(expected, remaining);
+        }
+
+        [Fact]
+        public void GetRemainingCommentCharacters_Exactly250_ReturnsZero()
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var service = new CommentsService(repository);
+            var comment = new string('a', 250);
+
+            // Act
+            var remaining = service.GetRemainingCommentCharacters(comment);
+
+            // Assert
+            Assert.Equal(0, remaining);
+        }
+
+        [Fact]
+        public void GetRemainingCommentCharacters_MoreThan250_ReturnsNegative()
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var service = new CommentsService(repository);
+            var comment = new string('a', 251);
+
+            // Act
+            var remaining = service.GetRemainingCommentCharacters(comment);
+
+            // Assert
+            Assert.True(remaining < 0);
+            Assert.Equal(-1, remaining);
+        }
+
+        [Theory]
+        [InlineData(null, false)]
+        [InlineData("", false)]
+        [InlineData("   ", false)]
+        [InlineData("Hello", false)]
+        [InlineData(null, false)]
+        public void IsCommentTooLong_VariousInputs_ReturnsExpected(string comment, bool expected)
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var service = new CommentsService(repository);
+
+            // Act
+            var result = service.IsCommentTooLong(comment);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void IsCommentTooLong_Exactly250_ReturnsFalse()
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var service = new CommentsService(repository);
+            var comment = new string('a', 250);
+
+            // Act
+            var result = service.IsCommentTooLong(comment);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void IsCommentTooLong_MoreThan250_ReturnsTrue()
+        {
+            // Arrange
+            var repository = A.Fake<ICommentsRepository>();
+            var service = new CommentsService(repository);
+            var comment = new string('a', 251);
+
+            // Act
+            var result = service.IsCommentTooLong(comment);
+
+            // Assert
+            Assert.True(result);
+        }
+
         [Theory]
         [InlineData(0, 2)]
         [InlineData(1, 0)]
