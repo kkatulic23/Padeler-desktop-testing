@@ -37,6 +37,11 @@ namespace BLL
                 score++;
             }
 
+            if (HasSpecialCharacter(password))
+            {
+                score++;
+            }
+
             return score;
         }
 
@@ -64,7 +69,7 @@ namespace BLL
                 return "Good";
             }
 
-            return "Very weak";
+            return "Very good";
         }
 
         private bool HasMinimumLength(string password)
@@ -103,6 +108,19 @@ namespace BLL
             foreach (char character in password)
             {
                 if (char.IsDigit(character))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool HasSpecialCharacter(string password)
+        {
+            foreach (char character in password)
+            {
+                if (char.IsPunctuation(character) || char.IsSymbol(character))
                 {
                     return true;
                 }
