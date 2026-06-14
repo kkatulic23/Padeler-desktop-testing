@@ -65,10 +65,21 @@
             this.rtbComment.Size = new System.Drawing.Size(320, 92);
             this.rtbComment.TabIndex = 1;
             this.rtbComment.Text = "";
+            this.rtbComment.TextChanged += new System.EventHandler(this.rtbComment_TextChanged);
+            // 
+            // lblRemaining
+            // 
+            this.lblRemaining = new System.Windows.Forms.Label();
+            this.lblRemaining.AutoSize = true;
+            this.lblRemaining.Location = new System.Drawing.Point(12, 138);
+            this.lblRemaining.Name = "lblRemaining";
+            this.lblRemaining.Size = new System.Drawing.Size(160, 17);
+            this.lblRemaining.TabIndex = 3;
+            this.lblRemaining.Text = "Preostalo znakova: 250";
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(252, 138);
+            this.btnSend.Location = new System.Drawing.Point(252, 158);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(80, 33);
             this.btnSend.TabIndex = 2;
@@ -81,8 +92,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
-            this.ClientSize = new System.Drawing.Size(344, 183);
+             this.ClientSize = new System.Drawing.Size(344, 205);
             this.Controls.Add(this.btnSend);
+            this.Controls.Add(this.lblRemaining);
             this.Controls.Add(this.rtbComment);
             this.Controls.Add(this.nudGrade);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -101,5 +113,6 @@
         private System.Windows.Forms.NumericUpDown nudGrade;
         private System.Windows.Forms.RichTextBox rtbComment;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Label lblRemaining;
     }
 }
