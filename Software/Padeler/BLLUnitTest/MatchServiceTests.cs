@@ -408,5 +408,90 @@ namespace BLLUnitTests
             Assert.False(result.IsHidden);
             A.CallTo(() => matchRepository.FindByUsersAsync(1, 2)).MustHaveHappenedOnceExactly();
         }
+
+        [Fact]
+        public void FilterMatchesByName_GivenNullMatches_ReturnsEmptyList()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            // Act
+            var result = service.FilterMatchesByName(null, "test");
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void FilterMatchesByName_GivenEmptySearch_ReturnsOriginalList()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            var rows = new List<MatchRow>
+            {
+                new MatchRow { OtherUserId = 1, FullName = "Ivan Horvat", Phone = "", Nickname = "" },
+                new MatchRow { OtherUserId = 2, FullName = "Ana Ivić", Phone = "", Nickname = "" }
+            };
+
+            // Act
+            var result = service.FilterMatchesByName(rows, "");
+
+            // Assert
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact]
+        public void FilterMatchesByName_IsCaseInsensitiveAndPartialMatch()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            var rows = new List<MatchRow>
+            {
+                new MatchRow { OtherUserId = 1, FullName = "Kristian Katulić" },
+                new MatchRow { OtherUserId = 2, FullName = "Karlo Kršak" },
+                new MatchRow { OtherUserId = 3, FullName = "Ana" }
+            };
+
+            // Act
+            var result1 = service.FilterMatchesByName(rows, "kristian"); // full name, different case
+            var result2 = service.FilterMatchesByName(rows, "krš"); // partial surname
+
+            // Assert
+            Assert.Single(result1);
+            Assert.Equal(1, result1[0].OtherUserId);
+
+            Assert.Single(result2);
+            Assert.Equal(2, result2[0].OtherUserId);
+        }
+
+        [Fact]
+        public void FilterMatchesByName_NoMatches_ReturnsEmptyList()
+        {
+            // Arrange
+            var swipeRepository = A.Fake<ISwipeRepository>();
+            var matchRepository = A.Fake<IMatchRepository>();
+            var service = new MatchService(swipeRepository, matchRepository);
+
+            var rows = new List<MatchRow>
+            {
+                new MatchRow { OtherUserId = 1, FullName = "Ivan Horvat" },
+                new MatchRow { OtherUserId = 2, FullName = "Ana Ivić" }
+            };
+
+            // Act
+            var result = service.FilterMatchesByName(rows, "zzz");
+
+            // Assert
+            Assert.Empty(result);
+        }
     }
 }

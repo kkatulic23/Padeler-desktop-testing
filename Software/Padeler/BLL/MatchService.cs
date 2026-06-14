@@ -76,6 +76,23 @@ namespace BLL
         }
 
         /// <summary>
+        /// Filtrira listu matchova prema tekstu pretrage (ime i prezime).
+        /// Vraća samo matchove čije puno ime sadrži zadani tekst (case-insensitive).
+        /// Ako je searchText prazan ili null, vraća nefiltriranu listu.
+        /// </summary>
+        public List<MatchRow> FilterMatchesByName(List<MatchRow> matches, string searchText)
+        {
+            if (matches == null) return new List<MatchRow>();
+            if (string.IsNullOrWhiteSpace(searchText)) return matches;
+
+            var q = searchText.Trim();
+
+            return matches
+                .Where(m => !string.IsNullOrEmpty(m.FullName) && m.FullName.IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0)
+                .ToList();
+        }
+
+        /// <summary>
         /// Dohvaća sve matchove korisnika zajedno s pripadajućim
         /// korisničkim postavkama (nickname, skrivenost).
         /// Skriveni match entryji se ne uključuju u rezultat.

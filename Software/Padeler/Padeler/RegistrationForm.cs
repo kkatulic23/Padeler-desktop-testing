@@ -16,6 +16,9 @@ namespace Padeler
     public partial class RegistrationForm : Form
     {
         private byte[] _profileImagePngBytes = null;
+        private readonly PasswordStrengthService _passwordStrengthService = new PasswordStrengthService();
+        private ProgressBar _passwordStrengthProgressBar;
+        private Label _passwordStrengthLabel;
         public RegistrationForm()
         {
             InitializeComponent();
@@ -23,6 +26,10 @@ namespace Padeler
             btnRegister.FlatStyle = FlatStyle.Flat;
             btnRegister.FlatAppearance.BorderSize = 0;
             pbPictureRegister.BorderStyle = BorderStyle.FixedSingle;
+
+            InitializePasswordStrengthControls();
+            UpdatePasswordStrength();
+            txtPasswordRegister.TextChanged += txtPasswordRegister_TextChanged;
 
             this.KeyPreview = true;
             this.KeyDown += Register_KeyDown;
@@ -139,6 +146,43 @@ namespace Padeler
                 MessageBox.Show(ex.Message, "Image error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void InitializePasswordStrengthControls()
+        {
+            _passwordStrengthProgressBar = new ProgressBar
+            {
+                Minimum = 0,
+                Maximum = 5,
+                Value = 0,
+                Location = new Point(668, 160),
+                Size = new Size(90, 20)
+            };
+
+            _passwordStrengthLabel = new Label
+            {
+                AutoSize = true,
+                ForeColor = Color.White,
+                Location = new Point(668, 183),
+                Text = "Very weak"
+            };
+
+            Controls.Add(_passwordStrengthProgressBar);
+            Controls.Add(_passwordStrengthLabel);
+        }
+
+        private void txtPasswordRegister_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePasswordStrength();
+        }
+
+        private void UpdatePasswordStrength()
+        {
+            int score = _passwordStrengthService.CalculateScore(txtPasswordRegister.Text);
+            string label = _passwordStrengthService.GetStrengthLabel(txtPasswordRegister.Text);
+
+            _passwordStrengthProgressBar.Value = score;
+            _passwordStrengthLabel.Text = label;
         }
     }
 }
