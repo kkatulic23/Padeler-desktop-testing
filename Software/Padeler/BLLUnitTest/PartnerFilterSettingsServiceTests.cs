@@ -66,5 +66,36 @@ namespace BLLUnitTests
             Assert.Equal(a.FilterPosition, b.FilterPosition);
             Assert.Equal(a.FilterFrequency, b.FilterFrequency);
         }
+
+        [Fact]
+        public void GetDefaultSettings_RadiusWithinReasonableRange()
+        {
+            // Arrange
+            var svc = new PartnerFilterSettingsService();
+
+            // Act
+            var defaults = svc.GetDefaultSettings();
+
+            // Assert
+            Assert.InRange(defaults.RadiusKm, 1, 100);
+        }
+
+        [Fact]
+        public void GetDefaultSettings_ModifyingInstanceDoesNotAffectNewInstances()
+        {
+            // Arrange
+            var svc = new PartnerFilterSettingsService();
+
+            // Act
+            var first = svc.GetDefaultSettings();
+            first.RadiusKm = 1;
+            first.FilterGender = "Changed";
+
+            var second = svc.GetDefaultSettings();
+
+            // Assert
+            Assert.Equal(50, second.RadiusKm);
+            Assert.Equal(string.Empty, second.FilterGender);
+        }
     }
 }
