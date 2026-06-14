@@ -10,7 +10,7 @@ namespace BLL
     public sealed class CommentsService // Kristian Katulić
     {
         private readonly ICommentsRepository _repo;
-        private const int MaxCommentLength = 250;
+        public const int MaxCommentLength = 250;
         public CommentsService() : this(new CommentsRepository())
         {
         }
@@ -50,6 +50,29 @@ namespace BLL
                 throw new InvalidOperationException("You have already graded this user.");
 
             return await _repo.AddRatingAsync(commentedId, commenterId, grade, comment);
+        }
+
+        /// <summary>
+        /// Returns how many characters are remaining for a comment.
+        /// Null, empty or whitespace comments are treated as 0 characters.
+        /// The comment is trimmed before calculating the length.
+        /// The result can be negative when the comment is too long.
+        /// </summary>
+        public int GetRemainingCommentCharacters(string comment)
+        {
+            if (string.IsNullOrWhiteSpace(comment))
+                return MaxCommentLength;
+
+            int length = comment.Trim().Length;
+            return MaxCommentLength - length;
+        }
+
+        /// <summary>
+        /// Returns true when the trimmed comment exceeds the maximum allowed length.
+        /// </summary>
+        public bool IsCommentTooLong(string comment)
+        {
+            return GetRemainingCommentCharacters(comment) < 0;
         }
     }
 }

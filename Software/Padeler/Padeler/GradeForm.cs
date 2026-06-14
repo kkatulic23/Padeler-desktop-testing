@@ -18,6 +18,7 @@ namespace Padeler
 
             btnSend.BackColor = AppColors.NavButtonBackground;
             btnSend.ForeColor = AppColors.TextOnPrimary;
+            UpdateRemainingLabel();
         }
 
         private async void btnSend_Click(object sender, EventArgs e)
@@ -35,7 +36,7 @@ namespace Padeler
 
                 this.DialogResult = DialogResult.OK;
                 Close();
-            }
+            }       
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Greška",
@@ -44,6 +45,24 @@ namespace Padeler
             finally
             {
                 btnSend.Enabled = true;
+            }
+        }
+
+        private void rtbComment_TextChanged(object sender, EventArgs e)
+        {
+            UpdateRemainingLabel();
+        }
+
+        private void UpdateRemainingLabel()
+        {
+            int remaining = _service.GetRemainingCommentCharacters(rtbComment.Text);
+            if (_service.IsCommentTooLong(rtbComment.Text))
+            {
+                lblRemaining.Text = $"Prekoračeno za {Math.Abs(remaining)} znakova";
+            }
+            else
+            {
+                lblRemaining.Text = $"Preostalo znakova: {remaining}";
             }
         }
     }
