@@ -14,9 +14,9 @@ Za razvoj projekta korištene su tehnologije .NET Framework, WinForms, C#, MySQL
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
 ------------  | ------------------- | ----- | ---------------------
-Filip Grgac | fgrgac23@foi.hr | 0016167082 | fgrgac23
-Karlo Kršak | kkrsak23@foi.hr | 0016165894 | kkrsak23
-Kristian Katulić | kkatulic23@foi.hr | 0016168011 | kkatulic23
+Filip Grgac |  |  | 
+Karlo Kršak |  |  | 
+Kristian Katulić | kkatulic23@foi.hr |  | kkatulic23
 
 ## Specifikacija projekta
 Aplikacija Padeler zamišljena je kao desktop aplikacija razvijena u Visual Studiju pomoću WinForms-a u C# programskog jezika. Cilj aplikacije je povezati padel igrače na temelju njihove lokacije i razine igre. Korisnici mogu izrađivati i uređivati profile, pretraživati druge igrače u blizini, “swipeati” za odabir partnera, dopisivati se i davati ocjene nakon mečeva.
